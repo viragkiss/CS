@@ -1,0 +1,240 @@
+# Word Search Game
+# By Virag Kiss
+# Net ID: vkk243
+
+
+#--------------------------------------- SETUP ----------------------------------------------#
+
+#import modules
+import random
+import os
+
+#initialize board
+board = []
+
+#open a random file from boards folder (program is in this folder)
+
+randomFilename = 'board_' + str(random.randint(1, 12)) + '.csv'
+
+infile = open(f'{randomFilename}', 'r')
+
+#extract properties of board for dimensions and list of guessable words
+#dimensions are global constants
+
+properties_raw = infile.readline().strip()
+properties = properties_raw.split(',')
+wordlist = properties[2:]
+LENGTH = int(properties[0])
+WIDTH = int(properties[1])
+
+#add file lines to board as rows
+for r in range(0, LENGTH):
+	row_letters = infile.readline().strip().split(',')
+	board.append(row_letters)
+
+infile.close()
+
+#players are global constants
+NUM_PLAYERS = 2
+PLAYER_0 = 'Player 0'
+PLAYER_1 = 'Player 1'
+
+#assign a list of guessed words and a score for each player
+listPlayer0 = []
+listPlayer1 = []
+score0 = 0
+score1 = 0
+
+
+#function to find input word in board
+
+def checkAllDirections(inputWord, board):
+	
+	#find all occurrences of first letter and append their coordinates to an empty list
+	positions_of_0 = []
+	for r, row in enumerate(board):
+		for c, column in enumerate(row):
+			if (inputWord[0] == column) or (ord(inputWord[0]) - 32 == ord(column)):
+				x_index = r
+				y_index = c
+				position0 = [x_index, y_index]
+				positions_of_0.append(position0)
+
+	#declare list of possible directions
+	directions = [[-1, -1], [-1, 0], [-1, 1], [0, -1], [0, 1], [1, -1], [1, 0], [1, 1]]
+
+	#loop through every position of first letter, direction and subsequent letters
+	for p in range(0, len(positions_of_0)):
+		position0 = positions_of_0[p]
+		x_index = position0[0]
+		y_index = position0[1]
+
+		#in this loop, declare an empty list to store coordinates of found letters
+		for d in range(0, len(directions)):
+			coordinates_found = []
+			direction = directions[d]
+
+			for i in range(1, len(inputWord)):
+				X = x_index + i * direction[0]
+				Y = y_index + i * direction[1]
+
+				#check whether coordinates are within range of board
+				if (0 <= X < LENGTH) and (0 <= Y < WIDTH):
+
+					#map to allow finding of words even if their letters have been capitalised
+					#append found coordinates to the new empty list
+					#if all letters in a given direction have been found, the function returns the list
+
+					if (inputWord[i] == board[X][Y]) or (ord(inputWord[i]) - 32 == ord(board[X][Y])):
+						list_pos0 = [position0[0], position0[1]]
+						list_otherPos = [X, Y]
+
+						if list_pos0 not in coordinates_found:
+							coordinates_found.append(list_pos0)
+						coordinates_found.append(list_otherPos)
+
+						if len(coordinates_found) == len(inputWord):
+							return(coordinates_found)
+
+					#if next letter is not found, try another direction
+					elif (inputWord[i] != board[X][Y]) or (ord(inputWord[i]) - 32 != ord(board[X][Y])):
+						break
+
+
+
+
+#---------------------------------------- GAME PHASE ------------------------------------------------#
+
+
+#select random player to start
+turn = random.randint(0, NUM_PLAYERS - 1)
+if turn == 0:
+	next_player = PLAYER_0
+else:
+	next_player = PLAYER_1
+
+#the next operations are for dynamically formatting error messages during user input validation
+#show the user which letters are allowed
+letters_lower = []
+for r in range(97, 123):
+	letters_lower.append(chr(r))
+letters_lower = ''.join(letters_lower)
+
+#show the user the min and max length of the input word
+#this can accomodate any size even if the board is not a square
+if LENGTH > WIDTH:
+	max_length = LENGTH
+elif WIDTH > LENGTH:
+	max_length = WIDTH
+else:
+	max_length = LENGTH
+
+#let the users know what happens if they enter a word that's not allowed
+print()
+print("Important: while the board contains many English words, only some can be guessed.",
+	"In case you find a word that can't be guessed, you get another turn.", sep='\n')
+input("Press enter to start the game: ")
+
+os.system('clear')
+
+
+#play game as long as there are words to be guessed
+while wordlist != [] :
+
+	#print board first board and update at every turn
+	print()
+	for r in range(0, LENGTH):
+		print(WIDTH * '+---', '+', sep='')
+		print('| ', sep='', end='')
+		for c in range(0, WIDTH):
+			print(board[r][c], sep='', end=' | ',)
+		print()
+	print(WIDTH * '+---', '+', sep='')
+	print()
+
+	print(PLAYER_0, ':', score0, listPlayer0)
+	print(PLAYER_1, ':', score1, listPlayer1)
+	print()
+	
+
+	###### to aid while programming #######
+	#print('remaining words:')
+	#print(wordlist)
+	#print()
+
+
+	#alternate turns
+	if next_player == PLAYER_0:
+		next_player = PLAYER_1
+	else:
+		next_player = PLAYER_0
+
+	#check user input
+	#1) for lowercase letter only, 2) correct length, 3) guessable or not
+	while True:
+
+		inputWord = input(f'{next_player}, please enter a word: ')
+
+		if not (inputWord.isalpha()) or not (inputWord.islower()):
+			print(f'Invalid input. Only lowercase letters {letters_lower[0]}-{letters_lower[-1]} allowed:')
+			continue
+
+		if len(inputWord) < 3:
+			print(f"Invalid input. Word has to be min 3 characters and max {max_length} characters: ")
+			continue
+
+		if inputWord in listPlayer0:
+			print(f'Invalid input. Word has already been guessed by {PLAYER_0}')
+			continue
+
+		if inputWord in listPlayer1:
+			print(f'Invalid input. Word has already been guessed by {PLAYER_1}')
+			continue
+
+		if inputWord not in wordlist:
+			print('Invalid input: word not amongst the guessable words. Try another word: ')
+			continue
+
+		break
+
+	#append word to player's list and increase their score by 1
+
+	if next_player == PLAYER_0:
+		listPlayer0.append(inputWord)
+		score0 += 1
+	elif next_player == PLAYER_1:
+		listPlayer1.append(inputWord)
+		score1 += 1
+
+	#remove word from guessable words so that it can't be guessed again
+	wordlist.remove(inputWord)
+
+	#call direction check function to get list of coordinates
+	index_list = checkAllDirections(inputWord, board)
+
+	#capitalise letters at those coordinates
+	for row in index_list:
+		ind1 = row[0]
+		ind2 = row[1]
+		board[ind1][ind2] = board[ind1][ind2].upper()
+
+	#clear screen for every turn
+	os.system('clear')
+
+
+
+#----------------------------------- END OF GAME ----------------------------------------#
+
+print()
+
+#make some nice remarks in the end
+remarks = ['Awesome game!', 'Very nice!', 'Good effort!']
+print(random.choice(remarks))
+print()
+
+if score0 > score1:
+	print('The winner is', PLAYER_0 + '!')
+elif score1 > score0:
+	print('The winner is', PLAYER_1 + '!')
+else:
+	print("It's a tie!")
