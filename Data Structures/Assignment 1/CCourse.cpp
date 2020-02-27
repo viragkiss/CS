@@ -37,6 +37,7 @@ void CCourse::enroll(CStudent* s){
 		enrolled[this->nbEnrolled] = *s;
 		nbEnrolled ++;
 		cout<<"Enrolled student: "<<*s<<endl;
+		cout<<"Available spaces: "<<(this->capacity - this->nbEnrolled)<<endl;
 	}
 	else cout<<"Course is full"<<endl;
 }

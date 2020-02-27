@@ -31,7 +31,6 @@ using namespace std ;
      
  public:
      // --- add getters and setters here
- 	void setNbCourses(int i);
  	void friend displayInfo(CStudent &s);
      
  public:

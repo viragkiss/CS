@@ -24,7 +24,8 @@ public:
     ~CCourse() ;
     friend ostream& operator<<(ostream &o, const CCourse &c);
     void enroll(CStudent* s);  //if the course is not full, the function adds this pointer to the array of students enrolled, and increases the attribute nbEnrolled
- 
+ 	friend class CStudent;
+
 public:
     // --- add getters and setters here
     void setNbEnrolled(int i);

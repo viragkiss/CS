@@ -25,13 +25,6 @@ CStudent::CStudent(char* vname, int vid)
 	this->maxCourses = MAXCRST;
 	this->maxExams = NBEXAMS;
 	this->nbCourses = 0;
-
-	////create course array, populate and print
-	/*for (int i=0; i<maxCourses; i++){
-		courses[i]=CCourse((char*)"CS", rand()%10);
-		cout<<"Courses are: "<<courses[i]<<"; ";
-	} cout<<endl;*/
-	
 	
 	////create grades array
 	this->grades = new int* [this->maxCourses];
@@ -43,23 +36,18 @@ CStudent::CStudent(char* vname, int vid)
 	for (int i=0; i<this->maxCourses; i++){
 		for (int j=0; j<this->maxExams; j++) {
 			this->grades[i][j] = rand() % 101;
-			//cout<<setw(2)<<this->grades[i][j]<<" ";
 		}
-		//cout<<endl;
 	}
-
-	//cout<<"Student onstructor called: "<<this->name<<", "<<this->id<<endl;
 }
 
 CStudent::~CStudent()
 {
     // --- add destructor definition here
-    ////delete grades array
 	for (int i=0 ; i<this->maxCourses ; i++) {
 		delete [] this->grades [i];
 	}
 	delete [] this->grades ;
-	//delete [] this->courses;
+	delete [] this->courses;
     delete [] this->name;
     
     cout<<"Student destructor called: "<<this->name<<endl;
@@ -80,24 +68,17 @@ void CStudent::printGrades(){
 	}
 }
 
-void CStudent::setNbCourses(int i){
-	this->nbCourses = i;
-}
-
 void CStudent::enroll(CCourse* c){
 
 	if (this->nbCourses < this->maxCourses){
-		courses[this->nbCourses] = *c;
-		nbCourses ++;
-		cout<<"Enrolled in course: "<<*c<<endl;
-	}
-	else cout<<"Course is full"<<endl;
-	/*if (this->nbCourses < this->maxCourses){
-		for (int i=0, i<this->maxCourses; i++){
-			if (courses[i] == NULL) courses[i] = c;
+		if (c->nbEnrolled < 7){
+			courses[this->nbCourses] = *c;
+			nbCourses ++;
+			cout<<"Enrolled in course: "<<*c<<endl;
 		}
+		else cout<<"Course is full"<<endl;
 	}
-	else cout<<"Course is full"<<endl;*/
+	else cout<<"Schedule is full"<<endl;
 }
 
 //////--------------friend functions--------------------------
