@@ -43,11 +43,11 @@ CStudent::CStudent(char* vname, int vid)
 CStudent::~CStudent()
 {
     // --- add destructor definition here
-	for (int i=0 ; i<this->maxCourses ; i++) {
+	/*for (int i=0 ; i<this->maxCourses ; i++) {
 		delete [] this->grades [i];
 	}
 	delete [] this->grades ;
-	delete [] this->courses;
+	//delete [] this->courses;*/
     delete [] this->name;
     
     cout<<"Student destructor called: "<<this->name<<endl;
@@ -71,9 +71,12 @@ void CStudent::printGrades(){
 void CStudent::enroll(CCourse* c){
 
 	if (this->nbCourses < this->maxCourses){
-		if (c->nbEnrolled < 7){
+		if (c->nbEnrolled < MAXSTCR){
 			courses[this->nbCourses] = *c;
 			nbCourses ++;
+			c->enrolled[c->nbEnrolled] = *this;
+			c->nbEnrolled ++;
+
 			cout<<"Enrolled in course: "<<*c<<endl;
 		}
 		else cout<<"Course is full"<<endl;
@@ -81,7 +84,27 @@ void CStudent::enroll(CCourse* c){
 	else cout<<"Schedule is full"<<endl;
 }
 
-//////--------------friend functions--------------------------
+void CStudent::setCourseGrades(int courseIndex, int* scores){
+	this->grades[courseIndex] = scores;
+	cout<<"these scores have been added to grades: "<<endl;
+	for (int i=0; i<NBEXAMS; i++){
+		cout<<scores[i]<<", "<<endl;
+	}
+}
+
+int CStudent::calcAverages(int* scores){
+	int total= 0;
+	for (int i=0; i<NBEXAMS; i++){
+		total = total + scores[i];
+	} cout<<"Total is: "<<total<<endl;
+	return total;
+}
+
+void CStudent::setExamGrade(int courseIndex, int examIndex, int score){
+	grades[courseIndex][examIndex] = score;
+	cout<<"this score was added to exam grades: "<<score<<endl;
+}
+
 void displayInfo(CStudent &s){
 	cout<<s<<endl;
 	s.printGrades();

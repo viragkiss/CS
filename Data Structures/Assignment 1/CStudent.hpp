@@ -26,7 +26,7 @@ using namespace std ;
      CStudent(char* vname, int vid) ;
      ~CStudent() ;
      friend ostream& operator<<(ostream &o, const CStudent &s);
-     
+     friend class CCourse;
      void enroll(CCourse* c);  // receive a pointer to a course, adds this pointer to the array of courses, and increases the attribute nbCourses
      
  public:
@@ -35,15 +35,17 @@ using namespace std ;
      
  public:
      // --- add grades methods here
- 	void setCourseGrades(int courseIndex, int* scores);  // receive a course index (0<=ci<NbCourses) and an array of scores to be used to set the grades of course ci
- 	void setExamGrade(int courseIndex, int examIndex, int score);  // receive a course index (ci), an exam index (0<=ei<NBEXAM), and a score to be stored as the grade of exam ei in the course ci.
+ 	void setCourseGrades(int courseIndex, int* scores);  // receive a course index (0<=ci<NbCourses) and an array of scores to be used to set the 
+    //rades of course ci
+ 	void setExamGrade(int courseIndex, int examIndex, int score);  // receive a course index (ci), an exam index (0<=ei<NBEXAM),
+    //and a score to be stored as the grade of exam ei in the course ci.
 
  public:
      // --- add other methods here
     void printGrades();
     void displayCourses();  //traverse the array of courses and displays the information of each course
     						//(code, name, capacity, and number of students enrolled) by calling the method CCourse::displayInfo()
-    void calcAverages(); //calculate the average grade for each of the courses taken by the student, returns the averages as an array
+    int calcAverages(int* scores); //calculate the average grade for each of the courses taken by the student, returns the averages as an array
  
 } ;
 

@@ -34,10 +34,16 @@ CCourse::~CCourse()
 
 void CCourse::enroll(CStudent* s){
 	if (this->nbEnrolled < this->capacity){
-		enrolled[this->nbEnrolled] = *s;
-		nbEnrolled ++;
-		cout<<"Enrolled student: "<<*s<<endl;
-		cout<<"Available spaces: "<<(this->capacity - this->nbEnrolled)<<endl;
+		if (s->nbCourses < MAXCRST){
+			enrolled[this->nbEnrolled] = *s;
+			nbEnrolled ++;
+			s->courses[s->nbCourses] = *this;
+			s->nbCourses ++;
+
+			cout<<"Enrolled student: "<<*s;
+			cout<<"Available spaces: "<<(this->capacity - this->nbEnrolled)<<endl;
+		}
+		else cout<<"Student schedule is full"<<endl;
 	}
 	else cout<<"Course is full"<<endl;
 }

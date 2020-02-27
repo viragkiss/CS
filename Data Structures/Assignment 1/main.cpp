@@ -12,15 +12,19 @@ void TestStudent()
 {
     
     CStudent s1 ((char*)"Jozsef", 789);
-    CStudent s2 ((char*)"Asdjhdbc", 123);
+    CStudent s2 ((char*)"Lili", 123);
     CStudent s3 ((char*)"Bela", 567);
+    CStudent s4 ((char*)"Anna", 345);
+    CStudent s5 ((char*)"Bogi", 876);
+    CStudent s6 ((char*)"Alia", 321);
+    CStudent s7 ((char*)"Isaiah", 908);
+    CStudent s8 ((char*)"Jakub", 908);
     //---------------------------------------------
     CCourse c1((char*)"Discrete maths", 123);
     CCourse c2((char*)"Data Structures", 124);
     CCourse c3((char*)"Algorithms", 126);
     CCourse c4((char*)"CSO", 238);
     CCourse c5((char*)"Visual Art", 567);
-
     cout<<endl;
     
     displayInfo(s1);
@@ -33,16 +37,31 @@ void TestStudent()
     s1.enroll(&c4);
     s1.enroll(&c5);
 
+    displayInfo(c1);
+
+    c1.enroll(&s1);
     c1.enroll(&s2);
+    c1.enroll(&s3);
+    c1.enroll(&s4);
+    c1.enroll(&s5);
+    c1.enroll(&s6);
+    c1.enroll(&s7);
+    c1.enroll(&s8);
 
     displayInfo(s1);
+    displayInfo(s2);
+    displayInfo(s3);
+    displayInfo(c1);
 
 }
 
 // test the cstudent class
 void TestCourse()
 {
-    
+    CCourse c2((char*)"Data Structures", 124);
+    CCourse c3((char*)"Algorithms", 126);
+    CCourse c4((char*)"CSO", 238);
+    CCourse c5((char*)"Visual Art", 567);
 }
 
 // main fucntion to test the depart functionnalities
