@@ -25,11 +25,11 @@ CStudent::CStudent(char* vname, int vid)
 	this->maxExams = NBEXAMS;
 	this->nbCourses = 0;
 
-	//CCourse* courses [MAXCRST];
+	this->courses = new CCourse* [MAXCRST];
 
-	for (int i=0; i<MAXCRST; i++){
-		courses[i] = &(new CCourse());
-	}
+	/*for (int i=0; i<MAXCRST; i++){
+		courses[i] = new CCourse* [MAXCRST];
+	}*/
 
 
 	//this->courses = new CCourse [maxCourses];
@@ -92,7 +92,7 @@ void CStudent::enroll(CCourse* c){
 
 	cout<<"-----------------------------------------------------------"<<endl;
 	for (int i=0; i<nbCourses; i++){
-		(courses[i]).displayInfo();
+		(courses[i])->displayInfo();
 	}
 	cout<<"-----------------------------------------------------------"<<endl;
 }
@@ -130,7 +130,7 @@ void CStudent::displayInfo(){
 
 void CStudent::displayCourses(){
 	for (int i=0; i<nbCourses; i++){
-		(courses[i]).displayInfo();
+		(courses[i])->displayInfo();
 	}
 }
 

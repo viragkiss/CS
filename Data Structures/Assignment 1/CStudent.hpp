@@ -17,7 +17,7 @@ using namespace std ;
  	int maxCourses;
  	int maxExams;
  	int nbCourses;
- 	CCourse* courses;
+ 	CCourse** courses;
  	int **grades;
  
  public: //Memory management methods

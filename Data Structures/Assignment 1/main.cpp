@@ -41,27 +41,27 @@ void TestStudent()
     
     cout<<endl;
 
-    /*ss[0].enroll(&cc[0]);
+    ss[0].enroll(&cc[0]);
     ss[0].enroll(&cc[1]);
     ss[0].enroll(&cc[2]);
     ss[0].enroll(&cc[3]);
-    ss[0].enroll(&cc[4]);*/
+    ss[0].enroll(&cc[4]);
 
     cc[0].displayInfo();
 
-    /*c1.enroll(&ss[0]);
-    c1.enroll(&ss[2]);
-    c1.enroll(&s3);
-    c1.enroll(&s4);
-    c1.enroll(&s5);
-    c1.enroll(&s6);
-    c1.enroll(&s7);
-    c1.enroll(&s8);
+    cc[0].enroll(&ss[0]);
+    cc[0].enroll(&ss[1]);
+    cc[0].enroll(&ss[2]);
+    cc[0].enroll(&ss[3]);
+    cc[0].enroll(&ss[4]);
+    cc[0].enroll(&ss[5]);
+    cc[0].enroll(&ss[6]);
+    cc[0].enroll(&ss[7]);
 
     ss[0].displayInfo();
     ss[2].displayInfo();
     ss[3].displayInfo();
-    c1.displayInfo();
+    cc[0].displayInfo();
 
     //test setCourseGrades()
     int* scores;
@@ -71,7 +71,7 @@ void TestStudent()
         for (int j=0; j<NBEXAMS; j++){
            scores[j] = rand() % 101;
         }
-        s1.setCourseGrades(i, scores);  //pass array to course and set course grades
+        ss[0].setCourseGrades(i, scores);  //pass array to course and set course grades
         cout<<"i is "<<i<<endl;
     }
     
@@ -83,7 +83,7 @@ void TestStudent()
     cout<<"Student 2: "<<endl;
     ss[3].displayCourses();
     cout<<endl;
-    c1.displayInfo();
+    cc[0].displayInfo();
 
 
     //cd Desktop/"Data Structures_Ass1".   //////*/

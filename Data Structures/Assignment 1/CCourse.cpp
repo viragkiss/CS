@@ -20,8 +20,16 @@ CCourse::CCourse(char* vname, int vcode)
 	strcpy(name, vname);
 	this->code = vcode;
 	this->capacity = MAXSTCR;
-    this->enrolled = new CStudent [MAXSTCR];
+    //this->enrolled = new CStudent [MAXSTCR];
     this->nbEnrolled = 0;
+
+    this->enrolled = new CStudent* [MAXSTCR];
+
+    /*CStudent** this->enrolled [MAXCRST];
+
+	for (int i=0; i<MAXCRST; i++){
+		this->enrolled[i] = new CStudent* [MAXCRST];
+	}*/
 }
 
 CCourse::~CCourse()

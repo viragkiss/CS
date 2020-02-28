@@ -14,7 +14,7 @@ private:
     char* name;
     int code;
     int capacity;
-    CStudent* enrolled;
+    CStudent** enrolled;
     int nbEnrolled;
   
 public:
