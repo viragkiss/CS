@@ -25,7 +25,7 @@ CStudent::CStudent(char* vname, int vid)
 	this->maxExams = NBEXAMS;
 	this->nbCourses = 0;
 
-	this->courses = new CCourse* [MAXCRST];
+	this->courses = new CCourse* [this->maxCourses];
 
 	/*for (int i=0; i<MAXCRST; i++){
 		courses[i] = new CCourse* [MAXCRST];
@@ -50,10 +50,10 @@ CStudent::CStudent(char* vname, int vid)
 CStudent::~CStudent()
 {
     // --- add destructor definition here
-	/*for (int i=0 ; i<this->maxCourses ; i++) {
-		delete [] this->grades [i];
+	/*for (int i=0 ; i<MAXCRST ; i++) {
+		delete [] this->courses [i];
 	}
-	delete [] this->grades ;
+	delete [] this->courses ;
 	//delete [] this->courses;*/
     delete [] this->name;
     
@@ -79,8 +79,8 @@ void CStudent::enroll(CCourse* c){
 
 	if (this->nbCourses < this->maxCourses){
 		if (c->nbEnrolled < MAXSTCR){
-			courses[this->nbCourses] = c;  //enroll student in course
-			nbCourses ++;
+			this->courses[this->nbCourses] = c;  //enroll student in course
+			this->nbCourses ++;
 			c->enrolled[c->nbEnrolled] = this;  //add course to student schedule
 			c->nbEnrolled ++;
 
@@ -89,32 +89,26 @@ void CStudent::enroll(CCourse* c){
 		else cout<<"Course is full"<<endl;
 	}
 	else cout<<"Student schedule is full"<<endl;
-
-	cout<<"-----------------------------------------------------------"<<endl;
-	for (int i=0; i<nbCourses; i++){
-		(courses[i])->displayInfo();
-	}
-	cout<<"-----------------------------------------------------------"<<endl;
 }
 
 void CStudent::setCourseGrades(int courseIndex, int* scores){
 	//scores has nbExams elements
-	for (int i=0; i<NBEXAMS; i++){
+	for (int i=0; i<this->maxExams; i++){
 		this->setExamGrade(courseIndex, i, scores[i]);
 	}
 
 	cout<<"these scores have been added to grades: "<<endl;
-	for (int i=0; i<NBEXAMS; i++){
+	for (int i=0; i<this->maxExams; i++){
 		cout<<scores[i]<<", ";
 	}
 }
 
 int CStudent::calcAverages(int* scores){
 	int total= 0;
-	for (int i=0; i<NBEXAMS; i++){
+	for (int i=0; i<this->maxExams; i++){
 		total = total + scores[i];
 	} cout<<"Total is: "<<total<<endl;
-	int average = total/NBEXAMS;
+	int average = total/this->maxExams;
 	return average;
 }
 
@@ -129,8 +123,8 @@ void CStudent::displayInfo(){
 }
 
 void CStudent::displayCourses(){
-	for (int i=0; i<nbCourses; i++){
-		(courses[i])->displayInfo();
+	for (int i=0; i<this->nbCourses; i++){
+		(this->courses[i])->displayInfo();
 	}
 }
 

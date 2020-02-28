@@ -23,7 +23,7 @@ CCourse::CCourse(char* vname, int vcode)
     //this->enrolled = new CStudent [MAXSTCR];
     this->nbEnrolled = 0;
 
-    this->enrolled = new CStudent* [MAXSTCR];
+    this->enrolled = new CStudent* [this->capacity];
 
     /*CStudent** this->enrolled [MAXCRST];
 
@@ -43,8 +43,8 @@ CCourse::~CCourse()
 void CCourse::enroll(CStudent* s){
 	if (this->nbEnrolled < this->capacity){
 		if (s->nbCourses < MAXCRST){
-			enrolled[this->nbEnrolled] = s;  //enroll student in course
-			nbEnrolled ++;
+			this->enrolled[this->nbEnrolled] = s;  //enroll student in course
+			this->nbEnrolled ++;
 			s->courses[s->nbCourses] = this;   //add course to student schedule
 			s->nbCourses ++;
 
@@ -68,6 +68,12 @@ void CCourse::setNbEnrolled(int i){
 
 void CCourse::displayInfo(){
 	cout<<*this<<endl;
+}
+
+void CCourse::displayStudents(){
+	for (int i=0; i<this->nbEnrolled; i++){
+		(this->enrolled[i])->displayInfo();
+	}
 }
 
 
