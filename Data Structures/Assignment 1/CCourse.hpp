@@ -23,12 +23,11 @@ public:
     CCourse(char* vname, int vcode) ;
     ~CCourse() ;
     friend ostream& operator<<(ostream &o, const CCourse &c);
-    void enroll(CStudent* s);  //if the course is not full, the function adds this pointer to the array of students enrolled, and increases the attribute nbEnrolled
+    bool enroll(CStudent* s);  //if the course is not full, the function adds this pointer to the array of students enrolled, and increases the attribute nbEnrolled
  	friend class CStudent;
 
 public:
     // --- add getters and setters here
-    void setNbEnrolled(int i);
     void displayInfo();
 
     void getStudent(int id);   // receive an index ind, verify that 0<=ind<NbEnrolled, the returns the student located at this index, or NULL
@@ -38,7 +37,7 @@ public:
 public:
     // --- add othe methods here
     void displayStudents();  //traverse the array of enrolled students and calls CStudent::displayInfo() to displays the information of each student
-    void calcAverages(); //calculate the average grade for each of the students enrolled in the course, returns the averages as an array
+    int* calcAverages(); //calculate the average grade for each of the students enrolled in the course, returns the averages as an array
     int findCourseIndex(CStudent* s);
     
 } ;

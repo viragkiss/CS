@@ -27,7 +27,7 @@ using namespace std ;
      ~CStudent() ;
      friend ostream& operator<<(ostream &o, const CStudent &s);
      friend class CCourse;
-     void enroll(CCourse* c);  // receive a pointer to a course, adds this pointer to the array of courses, and increases the attribute nbCourses
+     bool enroll(CCourse* c);  // receive a pointer to a course, adds this pointer to the array of courses, and increases the attribute nbCourses
      
  public:
      // --- add getters and setters here
@@ -45,7 +45,7 @@ using namespace std ;
     void printGrades();
     void displayCourses();  //traverse the array of courses and displays the information of each course
     						//(code, name, capacity, and number of students enrolled) by calling the method CCourse::displayInfo()
-    int calcAverages(int* scores); //calculate the average grade for each of the courses taken by the student, returns the averages as an array
+    int* calcAverages(); //calculate the average grade for each of the courses taken by the student, returns the averages as an array
  
 } ;
 

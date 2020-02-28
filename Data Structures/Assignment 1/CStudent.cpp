@@ -1,6 +1,5 @@
 #include <iostream>
 #include <cstdlib>
-//#include <ctime>
 #include <iomanip>
 #include "constants.h"
 #include "CStudent.hpp"
@@ -16,7 +15,6 @@ CStudent::CStudent(){
 CStudent::CStudent(char* vname, int vid)
 {
      // --- add constructir definition here
-	//srand(time(NULL));
 
 	this->name = new char[strlen(vname)+1];
 	strcpy(name, vname);
@@ -24,22 +22,14 @@ CStudent::CStudent(char* vname, int vid)
 	this->maxCourses = MAXCRST;
 	this->maxExams = NBEXAMS;
 	this->nbCourses = 0;
-
 	this->courses = new CCourse* [this->maxCourses];
-
-	/*for (int i=0; i<MAXCRST; i++){
-		courses[i] = new CCourse* [MAXCRST];
-	}*/
-
-
-	//this->courses = new CCourse [maxCourses];
 	
 	////create grades array
 	this->grades = new int* [this->maxCourses];
-	for (int i=0; i<this->maxCourses; i++){
+	for (int i=0; i<this->maxExams; i++){
 		this->grades[i] = new int [this->maxExams];
 	}
-	////populate grades array
+	////populate grades array with values of 0 at first
 	for (int i=0; i<this->maxCourses; i++){
 		for (int j=0; j<this->maxExams; j++) {
 			this->grades[i][j] = 0;
@@ -50,16 +40,16 @@ CStudent::CStudent(char* vname, int vid)
 CStudent::~CStudent()
 {
     // --- add destructor definition here
-	/*for (int i=0 ; i<MAXCRST ; i++) {
-		delete [] this->courses [i];
+	for(int i=0; i<maxCourses; i++){
+		delete [] this->grades[i];
 	}
-	delete [] this->courses ;
-	//delete [] this->courses;*/
+	delete [] this->grades;
+
+	delete [] this->courses;
     delete [] this->name;
-    
     cout<<"Student destructor called: "<<this->name<<endl;
 }
-///////  print student data /////////////////
+
 ostream& operator<<(ostream &o, const CStudent &s){
 	o << "Student information: "<< s.name <<"; "<< s.id <<"; "<< s.nbCourses<<endl;
 	return o;
@@ -75,20 +65,28 @@ void CStudent::printGrades(){
 	}
 }
 
-void CStudent::enroll(CCourse* c){
+bool CStudent::enroll(CCourse* c){
 
 	if (this->nbCourses < this->maxCourses){
 		if (c->nbEnrolled < MAXSTCR){
+
 			this->courses[this->nbCourses] = c;  //enroll student in course
 			this->nbCourses ++;
 			c->enrolled[c->nbEnrolled] = this;  //add course to student schedule
 			c->nbEnrolled ++;
 
-			cout<<"Enrolled in course: "<<*c<<endl;
+			cout<<this->name<<" enrolled in course: "<<*c<<endl;
+			return true;
 		}
-		else cout<<"Course is full"<<endl;
+		else {
+			cout<<"Course"<<*c->name<<" is full"<<endl;
+			return false;
+		}
 	}
-	else cout<<"Student schedule is full"<<endl;
+	else {
+		cout<<this->name<<" schedule is full"<<endl;
+		return false;
+	}
 }
 
 void CStudent::setCourseGrades(int courseIndex, int* scores){
@@ -103,13 +101,23 @@ void CStudent::setCourseGrades(int courseIndex, int* scores){
 	}
 }
 
-int CStudent::calcAverages(int* scores){
-	int total= 0;
-	for (int i=0; i<this->maxExams; i++){
-		total = total + scores[i];
-	} cout<<"Total is: "<<total<<endl;
-	int average = total/this->maxExams;
-	return average;
+int* CStudent::calcAverages(){
+	int* arrayOfTotals ;
+	int total;
+	arrayOfTotals = new int [this->nbCourses];
+	cout<<"Totals for courses:"<<endl;
+
+	for (int i=0; i<this->nbCourses; i++){
+		total = 0;
+		for (int j=0; j<this->maxExams; j++){
+			total = total + this->grades[i][j];
+		}
+		arrayOfTotals[i] = total/this->maxExams;
+		cout<<arrayOfTotals[i]<<", ";
+
+	} cout<<endl;
+
+	return arrayOfTotals;
 }
 
 void CStudent::setExamGrade(int courseIndex, int examIndex, int score){

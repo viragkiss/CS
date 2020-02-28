@@ -1,7 +1,7 @@
 #include <iostream>
 #include <cstdlib>
-//#include <time.h>
-#include <ctime>
+#include <time.h>
+//#include <ctime>
 #include "CStudent.hpp"
 #include "CCourse.hpp"
 #include "CDept.hpp"
@@ -11,12 +11,12 @@ using namespace std;
 // test the cstudent class
 void TestStudent()
 {
-    //srand((unsigned int)time(0));
-    srand(time(NULL));
-    //array student
+    srand((unsigned int)time(0));
+    //srand(time(NULL));
+    //mock student array
     CStudent ss[] = {CStudent((char*)"Mark", 677), CStudent((char*)"Lili", 123), CStudent((char*)"Bela", 567), CStudent((char*)"Anna", 345),
     CStudent((char*)"Bogi", 876), CStudent((char*)"Alia", 321), CStudent((char*)"Isaiah", 908), CStudent((char*)"Jakub", 908)};
-    //array course
+    //mock course array
     CCourse cc[] = {CCourse((char*)"Discrete maths", 123), CCourse((char*)"Data Structures", 124), CCourse((char*)"Algorithms", 126),
     CCourse((char*)"CSO", 238), CCourse((char*)"Machine Learning", 567)};
 
@@ -116,6 +116,12 @@ int main(int argc, const char * argv[])
     // Create one dept with some default courses and students
     // Then display all the students and all the courses
         //---- do it here ----
+    CDept dept = CDept((char*)"Computer Science");
+    dept.getCourse(1);
+    dept.getStudent(2);
+
+    dept.displayStudents();
+    dept.displayCourses();
     
     // Display the courses taken by a student with index 2
         //---- do it here ----

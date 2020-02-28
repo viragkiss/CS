@@ -7,6 +7,7 @@
 
 class CDept {
 private: // You should not add any attribute
+    char* name;
     CStudent** students ;
     int nbStudents ;
     CCourse**  courses ;
@@ -19,7 +20,7 @@ private: // private functions called by the constructor
     void enrollStudentsInCourses() ;
     
 public:
-    CDept() ;
+    CDept(char* vname) ;
     ~CDept() ;
     
     CStudent* getStudent(int index) ;
