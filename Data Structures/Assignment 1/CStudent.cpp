@@ -1,6 +1,6 @@
 #include <iostream>
 #include <cstdlib>
-#include <ctime>
+//#include <ctime>
 #include <iomanip>
 #include "constants.h"
 #include "CStudent.hpp"
@@ -16,15 +16,23 @@ CStudent::CStudent(){
 CStudent::CStudent(char* vname, int vid)
 {
      // --- add constructir definition here
-	srand(time(NULL));
+	//srand(time(NULL));
 
 	this->name = new char[strlen(vname)+1];
 	strcpy(name, vname);
 	this->id = vid;
-	this->courses = new CCourse [maxCourses];
 	this->maxCourses = MAXCRST;
 	this->maxExams = NBEXAMS;
 	this->nbCourses = 0;
+
+	//CCourse* courses [MAXCRST];
+
+	for (int i=0; i<MAXCRST; i++){
+		courses[i] = &(new CCourse());
+	}
+
+
+	//this->courses = new CCourse [maxCourses];
 	
 	////create grades array
 	this->grades = new int* [this->maxCourses];
@@ -32,10 +40,9 @@ CStudent::CStudent(char* vname, int vid)
 		this->grades[i] = new int [this->maxExams];
 	}
 	////populate grades array
-	srand(time(NULL));
 	for (int i=0; i<this->maxCourses; i++){
 		for (int j=0; j<this->maxExams; j++) {
-			this->grades[i][j] = rand() % 101;
+			this->grades[i][j] = 0;
 		}
 	}
 }
@@ -62,7 +69,7 @@ void CStudent::printGrades(){
 
 	for (int i=0; i<this->maxCourses; i++){
 		for (int j=0; j<this->maxExams; j++) {
-			cout<<setw(2)<<this->grades[i][j]<<" ";
+			cout<<setw(3)<<this->grades[i][j]<<" ";
 		}
 		cout<<endl;
 	}
@@ -72,23 +79,33 @@ void CStudent::enroll(CCourse* c){
 
 	if (this->nbCourses < this->maxCourses){
 		if (c->nbEnrolled < MAXSTCR){
-			courses[this->nbCourses] = *c;
+			courses[this->nbCourses] = c;  //enroll student in course
 			nbCourses ++;
-			c->enrolled[c->nbEnrolled] = *this;
+			c->enrolled[c->nbEnrolled] = this;  //add course to student schedule
 			c->nbEnrolled ++;
 
 			cout<<"Enrolled in course: "<<*c<<endl;
 		}
 		else cout<<"Course is full"<<endl;
 	}
-	else cout<<"Schedule is full"<<endl;
+	else cout<<"Student schedule is full"<<endl;
+
+	cout<<"-----------------------------------------------------------"<<endl;
+	for (int i=0; i<nbCourses; i++){
+		(courses[i]).displayInfo();
+	}
+	cout<<"-----------------------------------------------------------"<<endl;
 }
 
 void CStudent::setCourseGrades(int courseIndex, int* scores){
-	this->grades[courseIndex] = scores;
+	//scores has nbExams elements
+	for (int i=0; i<NBEXAMS; i++){
+		this->setExamGrade(courseIndex, i, scores[i]);
+	}
+
 	cout<<"these scores have been added to grades: "<<endl;
 	for (int i=0; i<NBEXAMS; i++){
-		cout<<scores[i]<<", "<<endl;
+		cout<<scores[i]<<", ";
 	}
 }
 
@@ -97,17 +114,24 @@ int CStudent::calcAverages(int* scores){
 	for (int i=0; i<NBEXAMS; i++){
 		total = total + scores[i];
 	} cout<<"Total is: "<<total<<endl;
-	return total;
+	int average = total/NBEXAMS;
+	return average;
 }
 
 void CStudent::setExamGrade(int courseIndex, int examIndex, int score){
-	grades[courseIndex][examIndex] = score;
-	cout<<"this score was added to exam grades: "<<score<<endl;
+	this->grades[courseIndex][examIndex] = score;
+	//cout<<"this score was added to exam grades: "<<score<<endl;
 }
 
-void displayInfo(CStudent &s){
-	cout<<s<<endl;
-	s.printGrades();
+void CStudent::displayInfo(){
+	cout<<*this<<endl;
+	this->printGrades();
+}
+
+void CStudent::displayCourses(){
+	for (int i=0; i<nbCourses; i++){
+		(courses[i]).displayInfo();
+	}
 }
 
 

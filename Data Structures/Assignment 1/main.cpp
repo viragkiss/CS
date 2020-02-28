@@ -1,6 +1,7 @@
 #include <iostream>
 #include <cstdlib>
-//#include <ctime>
+//#include <time.h>
+#include <ctime>
 #include "CStudent.hpp"
 #include "CCourse.hpp"
 #include "CDept.hpp"
@@ -10,8 +11,17 @@ using namespace std;
 // test the cstudent class
 void TestStudent()
 {
-    
-    CStudent s1 ((char*)"Jozsef", 789);
+    //srand((unsigned int)time(0));
+    srand(time(NULL));
+    //array student
+    CStudent ss[] = {CStudent((char*)"Mark", 677), CStudent((char*)"Lili", 123), CStudent((char*)"Bela", 567), CStudent((char*)"Anna", 345),
+    CStudent((char*)"Bogi", 876), CStudent((char*)"Alia", 321), CStudent((char*)"Isaiah", 908), CStudent((char*)"Jakub", 908)};
+    //array course
+    CCourse cc[] = {CCourse((char*)"Discrete maths", 123), CCourse((char*)"Data Structures", 124), CCourse((char*)"Algorithms", 126),
+    CCourse((char*)"CSO", 238), CCourse((char*)"Machine Learning", 567)};
+
+
+    /*CStudent s1 ((char*)"Mark", 677);
     CStudent s2 ((char*)"Lili", 123);
     CStudent s3 ((char*)"Bela", 567);
     CStudent s4 ((char*)"Anna", 345);
@@ -24,23 +34,23 @@ void TestStudent()
     CCourse c2((char*)"Data Structures", 124);
     CCourse c3((char*)"Algorithms", 126);
     CCourse c4((char*)"CSO", 238);
-    CCourse c5((char*)"Visual Art", 567);
-    cout<<endl;
+    CCourse c5((char*)"Machine Learning", 567);
+    cout<<endl;*/
     
-    displayInfo(s1);
+    ss[0].displayInfo();
     
     cout<<endl;
 
-    s1.enroll(&c1);
-    s1.enroll(&c2);
-    s1.enroll(&c3);
-    s1.enroll(&c4);
-    s1.enroll(&c5);
+    /*ss[0].enroll(&cc[0]);
+    ss[0].enroll(&cc[1]);
+    ss[0].enroll(&cc[2]);
+    ss[0].enroll(&cc[3]);
+    ss[0].enroll(&cc[4]);*/
 
-    displayInfo(c1);
+    cc[0].displayInfo();
 
-    c1.enroll(&s1);
-    c1.enroll(&s2);
+    /*c1.enroll(&ss[0]);
+    c1.enroll(&ss[2]);
     c1.enroll(&s3);
     c1.enroll(&s4);
     c1.enroll(&s5);
@@ -48,20 +58,44 @@ void TestStudent()
     c1.enroll(&s7);
     c1.enroll(&s8);
 
-    displayInfo(s1);
-    displayInfo(s2);
-    displayInfo(s3);
-    displayInfo(c1);
+    ss[0].displayInfo();
+    ss[2].displayInfo();
+    ss[3].displayInfo();
+    c1.displayInfo();
 
+    //test setCourseGrades()
+    int* scores;
+    scores = new int[NBEXAMS];
+
+    for (int i=0; i<MAXCRST; i++){
+        for (int j=0; j<NBEXAMS; j++){
+           scores[j] = rand() % 101;
+        }
+        s1.setCourseGrades(i, scores);  //pass array to course and set course grades
+        cout<<"i is "<<i<<endl;
+    }
+    
+    ss[0].displayInfo();
+
+    cout<<"Here I'm displaying the courses of 2 students. Student 1: "<<endl;
+    cout<<endl;
+    ss[0].displayCourses();
+    cout<<"Student 2: "<<endl;
+    ss[3].displayCourses();
+    cout<<endl;
+    c1.displayInfo();
+
+
+    //cd Desktop/"Data Structures_Ass1".   //////*/
 }
 
 // test the cstudent class
 void TestCourse()
 {
-    CCourse c2((char*)"Data Structures", 124);
+    /*CCourse c2((char*)"Data Structures", 124);
     CCourse c3((char*)"Algorithms", 126);
     CCourse c4((char*)"CSO", 238);
-    CCourse c5((char*)"Visual Art", 567);
+    CCourse c5((char*)"Visual Art", 567);*/
 }
 
 // main fucntion to test the depart functionnalities

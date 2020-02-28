@@ -31,7 +31,7 @@ using namespace std ;
      
  public:
      // --- add getters and setters here
- 	void friend displayInfo(CStudent &s);
+ 	void displayInfo();
      
  public:
      // --- add grades methods here

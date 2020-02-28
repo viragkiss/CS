@@ -29,7 +29,7 @@ public:
 public:
     // --- add getters and setters here
     void setNbEnrolled(int i);
-    void friend displayInfo(CCourse &c);
+    void displayInfo();
 
     void getStudent(int id);   // receive an index ind, verify that 0<=ind<NbEnrolled, the returns the student located at this index, or NULL
     void findBestStudent();  // find the student with the highest average score among all the students

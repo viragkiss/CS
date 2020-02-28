@@ -35,9 +35,9 @@ CCourse::~CCourse()
 void CCourse::enroll(CStudent* s){
 	if (this->nbEnrolled < this->capacity){
 		if (s->nbCourses < MAXCRST){
-			enrolled[this->nbEnrolled] = *s;
+			enrolled[this->nbEnrolled] = s;  //enroll student in course
 			nbEnrolled ++;
-			s->courses[s->nbCourses] = *this;
+			s->courses[s->nbCourses] = this;   //add course to student schedule
 			s->nbCourses ++;
 
 			cout<<"Enrolled student: "<<*s;
@@ -50,7 +50,7 @@ void CCourse::enroll(CStudent* s){
 
 
 ostream& operator<<(ostream &o, const CCourse &c){
-	o << c.name <<"; "<< c.code <<"; "<< c.nbEnrolled<<endl;
+	o << "Course information: "<< c.name <<"; "<< c.code <<"; "<< c.nbEnrolled<<endl;
 	return o;
 }
 
@@ -58,8 +58,8 @@ void CCourse::setNbEnrolled(int i){
 	this->nbEnrolled = i;
 }
 
-void displayInfo(CCourse &c){
-	cout<<c<<endl;
+void CCourse::displayInfo(){
+	cout<<*this<<endl;
 }
 
 
