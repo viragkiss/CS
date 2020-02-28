@@ -39,6 +39,7 @@ public:
     // --- add othe methods here
     void displayStudents();  //traverse the array of enrolled students and calls CStudent::displayInfo() to displays the information of each student
     void calcAverages(); //calculate the average grade for each of the students enrolled in the course, returns the averages as an array
+    int findCourseIndex(CStudent* s);
     
 } ;
 #endif

@@ -85,6 +85,12 @@ void TestStudent()
     cout<<endl;
     cc[0].displayInfo();
 
+    ss[0].calcAverages();
+    ss[3].calcAverages();
+
+    cc[0].calcAverages();
+    cc[1].calcAverages();
+    
 
     //cd Desktop/"Data Structures_Ass1".   //////*/
 }
