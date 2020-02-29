@@ -93,10 +93,10 @@ void CStudent::setCourseGrades(int courseIndex, int* scores){
 		this->setExamGrade(courseIndex, i, scores[i]);
 	}
 
-	cout<<"these scores have been added to grades: "<<endl;
+	/*cout<<"these scores have been added to grades: "<<endl;
 	for (int i=0; i<this->maxExams; i++){
 		cout<<scores[i]<<", ";
-	}
+	}*/
 }
 
 int* CStudent::calcAverages(){

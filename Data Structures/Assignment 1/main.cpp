@@ -1,7 +1,6 @@
 #include <iostream>
 #include <cstdlib>
 #include <time.h>
-//#include <ctime>
 #include "CStudent.hpp"
 #include "CCourse.hpp"
 #include "CDept.hpp"
@@ -12,30 +11,13 @@ using namespace std;
 void TestStudent()
 {
     srand((unsigned int)time(0));
-    //srand(time(NULL));
+
     //mock student array
     CStudent ss[] = {CStudent((char*)"Mark", 677), CStudent((char*)"Lili", 123), CStudent((char*)"Bela", 567), CStudent((char*)"Anna", 345),
     CStudent((char*)"Bogi", 876), CStudent((char*)"Alia", 321), CStudent((char*)"Isaiah", 908), CStudent((char*)"Jakub", 908)};
     //mock course array
     CCourse cc[] = {CCourse((char*)"Discrete maths", 123), CCourse((char*)"Data Structures", 124), CCourse((char*)"Algorithms", 126),
     CCourse((char*)"CSO", 238), CCourse((char*)"Machine Learning", 567)};
-
-
-    /*CStudent s1 ((char*)"Mark", 677);
-    CStudent s2 ((char*)"Lili", 123);
-    CStudent s3 ((char*)"Bela", 567);
-    CStudent s4 ((char*)"Anna", 345);
-    CStudent s5 ((char*)"Bogi", 876);
-    CStudent s6 ((char*)"Alia", 321);
-    CStudent s7 ((char*)"Isaiah", 908);
-    CStudent s8 ((char*)"Jakub", 908);
-    //---------------------------------------------
-    CCourse c1((char*)"Discrete maths", 123);
-    CCourse c2((char*)"Data Structures", 124);
-    CCourse c3((char*)"Algorithms", 126);
-    CCourse c4((char*)"CSO", 238);
-    CCourse c5((char*)"Machine Learning", 567);
-    cout<<endl;*/
     
     ss[0].displayInfo();
     
@@ -150,6 +132,11 @@ int main(int argc, const char * argv[])
     
     // Create a new course and it to the department offering
         //---- do it here ----
+        CCourse c3((char*)"Data Structures", 356);
+        CCourse* ptr;
+        ptr = &c3;
+        dept.addCourse(ptr);
+        dept.displayCourses();
     
     // Register 2 students in a newly created course
         //---- do it here ----

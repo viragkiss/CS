@@ -31,8 +31,8 @@ public:
     // --- add getters and setters here
     void displayInfo();
 
-    void getStudent(int id);   // receive an index ind, verify that 0<=ind<NbEnrolled, the returns the student located at this index, or NULL
-    void findBestStudent();  // find the student with the highest average score among all the students
+    CStudent* getStudent(int id);   // receive an index ind, verify that 0<=ind<NbEnrolled, the returns the student located at this index, or NULL
+    CStudent* findBestStudent();  // find the student with the highest average score among all the students
 							//registered in the course. The caller should get best average score and the index where the
 							//best student is located in the array of enrolled students    
 public:

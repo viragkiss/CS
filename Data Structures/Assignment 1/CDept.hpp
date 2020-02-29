@@ -26,8 +26,8 @@ public:
     CStudent* getStudent(int index) ;
     CCourse* getCourse(int index) ;
     
-    bool addStudent() ;
-    bool addCourse() ;
+    bool addStudent(CStudent* s) ;
+    bool addCourse(CCourse* c) ;
     void enterStudentGrades(CStudent* ps, CCourse* pc, int* grades) ;
 
     bool enroll(CStudent* ps, CCourse* pc) ;
@@ -36,6 +36,9 @@ public:
     
 public: // DO NOT TOUCH THE ABOVE CODE
         // Add other other functions below as needed
+    CCourse** findCourses(CStudent* s);
+    void findBestStudent(CCourse* c);
+    CStudent* ThreeCoursesHighest();
 
 } ;
 #endif /* CDept2_hpp */

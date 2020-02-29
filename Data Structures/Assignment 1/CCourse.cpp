@@ -73,6 +73,14 @@ void CCourse::displayStudents(){
 	}
 }
 
+CStudent* CCourse::getStudent(int id) {
+	if (id < 0 || id >= nbEnrolled){
+		cout<<"No student assigned with given index. Try again."<<endl;
+		return NULL;
+	}
+	else return enrolled[id];
+}
+
 int* CCourse::calcAverages(){
 	int *arrayOfTotals, *tmpArray ;
 	int total, index;
@@ -109,17 +117,29 @@ int* CCourse::calcAverages(){
 
 int CCourse::findCourseIndex (CStudent* s){
 
-	int enr = s->nbCourses;
-				
+	int enr = s->nbCourses;		
 	for (int j=0; j<enr; j++){
-
 		if (s->courses[j] == this){
-
 			return j;
 		} 
 	}
 	cout<<"Course not found "<< this->name <<endl;
 	return -1;
+}
+
+CStudent* CCourse::findBestStudent(){
+	int number = 0;
+	int index = NULL;
+	if (this->nbEnrolled != 0){
+		for (int i=0; i < nbEnrolled; i++){
+			if ((this->calcAverages()[i] > number )){
+				this->calcAverages()[i] = number;
+				index = i;
+			}
+		}
+		return enrolled[index];
+	}
+	else return NULL;
 }
 
 

@@ -19,6 +19,7 @@ CDept::CDept(char* vname) {
     this->createStudents();
     this->createCourses();
     this->enrollStudentsInCourses();
+    this->createDefaultGrades();
 }
 
 CDept::~CDept() {
@@ -89,9 +90,7 @@ void CDept::enrollStudentsInCourses()
 
             CCourse* tmpc;
             tmpc = (this->courses[randIndex]);
-            
-            //tmps -> enroll(tmpc);
-            //tmpc -> enroll(tmps);
+
             this->enroll(tmps, tmpc);
             cout<<"----------------done-----------------------------------"<<endl;
         }
@@ -100,18 +99,33 @@ void CDept::enrollStudentsInCourses()
 
 void CDept::createDefaultGrades()
 {
-    // Use current time as seed for random generator
     srand((unsigned int)time(0));
-    
-    // -- do it here --
-
+    int* grades;
+    grades = new int [NBEXAMS];
+    for (int i=0; i < nbStudents; i++){
+        CStudent* tmps;
+        tmps = this->students[i];
+        
+        for (int k=0; k< tmps->nbCourses; k++){
+            for (int j=0; j< NBEXAMS; j++){
+                grades[j] = rand() % 101;
+            }
+            
+            tmps->setCourseGrades(k, grades);
+        }
+        cout<<"Default grades set for student "<< tmps->name<<endl;
+        tmps->printGrades();
+        cout<<"----------------------------------------------------------"<<endl;
+    }
 }
 
-bool CDept::addStudent() {
-    // -- do it here --
-    CStudent s((char*)"Mark", 205);
+bool CDept::addStudent(CStudent* s) {
+
     if (this->nbStudents < MAXNBST){
-        this->students[this->nbStudents] = &s;
+        this->students[this->nbStudents] = s;
+        this->nbStudents ++;
+        cout<<"New student: "<< *s;
+        cout<<"Number of students in "<< this->name <<" department is now"<< this->nbStudents<<endl;
         return true;
     }
     else {
@@ -120,11 +134,13 @@ bool CDept::addStudent() {
     }
 }
 
-bool CDept::addCourse() {
-    // -- do it here --
-    CCourse c((char*)"Data Structures", 356);
+bool CDept::addCourse(CCourse* c) {
+
     if (this->nbCourses < MAXNBCR){
-        this->courses[this->nbCourses] = &c;
+        this->courses[this->nbCourses] = c;
+        this->nbCourses ++;
+        cout<<"New course: "<< *c;
+        cout<<"Number of courses in "<<this->name<<" department is now "<<this->nbCourses<<"."<<endl;
         return true;
     }
     else {
@@ -168,6 +184,20 @@ void CDept::enterStudentGrades(CStudent* ps, CCourse* pc, int* grades) {
         ps->setCourseGrades(courseIndex, grades);
     }
     else cout<<"Student is not enrolled in course."<<endl;
+}
+
+//----------------- 3 extra functions --------------------
+
+CCourse** CDept::findCourses(CStudent* s){
+    s->displayCourses();
+    return s->courses;
+}
+void CDept::findBestStudent(CCourse* c){
+    c->findBestStudent();
+}
+
+CStudent* CDept::ThreeCoursesHighest(){
+    
 }
 
 
