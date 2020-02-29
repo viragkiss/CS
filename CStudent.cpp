@@ -68,20 +68,10 @@ void CStudent::printGrades(){
 bool CStudent::enroll(CCourse* c){
 
 	if ((this->nbCourses < this->maxCourses) && !(this->isEnrolled(c)) ) {
-		//if (c->nbEnrolled < MAXSTCR){
-
 			this->courses[this->nbCourses] = c;  //enroll student in course
 			this->nbCourses ++;
-			//c->enrolled[c->nbEnrolled] = this;  //add course to student schedule
-			//c->nbEnrolled ++;
-
 			cout<<this->name<<" enrolled in course: "<<*c<<endl;
 			return true;
-		//}
-		//else {
-			//cout<<"Course"<<*c->name<<" is full"<<endl;
-			//return false;
-		//}
 	}
 	else if (this->nbCourses == this->maxCourses) cout<<this->name<<" schedule is full"<<endl;
 	else if (this->isEnrolled(c)) cout<<this->name << " is already enroled in course " << *c->name<<endl;

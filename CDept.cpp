@@ -92,11 +92,6 @@ void CDept::enrollStudentsInCourses()
             tmpc -> enroll(tmps);
             cout<<"----------------done-----------------------------------"<<endl;
         }
-
-        /*for(int j=0; j<MAXCRST+1; j++){
-            randIndex = rand() % nbCourses;
-            this->students[i]->enroll(this->courses[randIndex]);
-        }*/
     }
 }
 
