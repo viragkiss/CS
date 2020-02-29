@@ -28,7 +28,7 @@ public:
     
     bool addStudent() ;
     bool addCourse() ;
-    void enterStudentGrades(CStudent* ps, CCourse* pc) ;
+    void enterStudentGrades(CStudent* ps, CCourse* pc, int* grades) ;
 
     bool enroll(CStudent* ps, CCourse* pc) ;
     void displayStudents() ;

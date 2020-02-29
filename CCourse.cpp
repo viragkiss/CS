@@ -34,7 +34,7 @@ CCourse::~CCourse()
 
 bool CCourse::enroll(CStudent* s){
 	// first, check if the course is full or the student is already enrolled
-	if ((this->nbEnrolled < this->capacity) && !(this->isEnrolled(s)) ){
+	if ((this->nbEnrolled < this->capacity) && ((this->isEnrolled(s)) == -1 ) ){
 
 			this->enrolled[this->nbEnrolled] = s;  //enroll student in course
 			this->nbEnrolled ++;
@@ -44,17 +44,17 @@ bool CCourse::enroll(CStudent* s){
 	}
 	// if not enrolled, display reasons accordingly
 	else if (this->nbEnrolled == this->capacity) cout<< this->name <<" course is full" <<endl;
-	else if (this->isEnrolled(s)) cout<< *s->name << " is already enroled in course " << this->name <<endl;
+	else if (this->isEnrolled(s)) cout<< s->name << " is already enroled in course " << this->name <<endl;
 	return false;
 }
 
-bool CCourse::isEnrolled(CStudent* s){
+int CCourse::isEnrolled(CStudent* s){
 	for (int i=0; i < this->nbEnrolled; i++){
 		if (this->enrolled[i] == s){
-			return true;
+			return i;
 		}
 	}
-	return false;
+	return -1;
 }
 
 

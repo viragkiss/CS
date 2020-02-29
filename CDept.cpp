@@ -31,11 +31,12 @@ CDept::~CDept() {
 CStudent* CDept::getStudent(int index)
 {
     // -- do it here --
-    if(nbStudents != 0){
+    if ((nbStudents != 0) && (index < this->nbStudents)) {
+        cout<<"got student "<< (this->students[index])->name <<endl;
         return this->students[index];
     }
     else{
-        cout<<"Department "<<this->name<<" has no students."<<endl;
+        cout<<"Department "<<this->name<<" has no student at index "<< index <<"."<<endl;
         return NULL;
     }
 }
@@ -43,11 +44,12 @@ CStudent* CDept::getStudent(int index)
 CCourse* CDept::getCourse(int index)
 {
     // -- do it here --
-    if(nbCourses != 0){
+    if ((nbCourses != 0) && (index < this->nbCourses)){
+        cout<<"got course "<< (this->courses[index])->name <<endl;
         return this->courses[index];
     }
     else{
-        cout<<"Department "<<this->name<<" has no courses."<<endl;
+        cout<<"Department "<<this->name<<" has no course at index "<< index <<"."<<endl;
         return NULL;
     }
 }
@@ -88,8 +90,9 @@ void CDept::enrollStudentsInCourses()
             CCourse* tmpc;
             tmpc = (this->courses[randIndex]);
             
-            tmps -> enroll(tmpc);
-            tmpc -> enroll(tmps);
+            //tmps -> enroll(tmpc);
+            //tmpc -> enroll(tmps);
+            this->enroll(tmps, tmpc);
             cout<<"----------------done-----------------------------------"<<endl;
         }
     }
@@ -132,8 +135,7 @@ bool CDept::addCourse() {
 
 bool CDept::enroll(CStudent* ps, CCourse* pc) {
     // -- do it here --
-
-    return true ; //or return false
+    return (ps->enroll(pc), pc->enroll(ps));
 }
 
 void CDept::displayStudents() {
@@ -153,3 +155,30 @@ void CDept::displayCourses() {
     }
     cout<<"----------------------------------------------------"<<endl;
 }
+
+void CDept::enterStudentGrades(CStudent* ps, CCourse* pc, int* grades) {
+    //get index of course
+    int courseIndex;
+    //catch null pointers first to avoid segmentation fault
+    if ((pc == NULL) || (ps == NULL)) {
+        cout<<"Student/course doesn't exist."<<endl;
+    }
+    else if ( ps->isEnrolled(pc) != -1) {
+        courseIndex = ps->isEnrolled(pc);
+        ps->setCourseGrades(courseIndex, grades);
+    }
+    else cout<<"Student is not enrolled in course."<<endl;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+

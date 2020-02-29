@@ -47,7 +47,7 @@ using namespace std ;
     void displayCourses();  //traverse the array of courses and displays the information of each course
     						//(code, name, capacity, and number of students enrolled) by calling the method CCourse::displayInfo()
     int* calcAverages(); //calculate the average grade for each of the courses taken by the student, returns the averages as an array
-    bool isEnrolled(CCourse* c);
+    int isEnrolled(CCourse* c);
  
 } ;
 
