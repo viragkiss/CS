@@ -37,8 +37,8 @@ public:
 public: // DO NOT TOUCH THE ABOVE CODE
         // Add other other functions below as needed
     CCourse** findCourses(CStudent* s);
-    void findBestStudent(CCourse* c);
-    CStudent* ThreeCoursesHighest();
+    CStudent* findBestStudent(CCourse* c);
+    CStudent* threeCoursesHighest();
 
 } ;
 #endif /* CDept2_hpp */

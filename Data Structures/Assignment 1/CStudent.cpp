@@ -55,6 +55,10 @@ ostream& operator<<(ostream &o, const CStudent &s){
 	return o;
 }
 
+int CStudent::getNbCourses(){
+	return this->nbCourses;
+}
+
 void CStudent::printGrades(){
 
 	for (int i=0; i<this->maxCourses; i++){
@@ -70,11 +74,12 @@ bool CStudent::enroll(CCourse* c){
 	if ((this->nbCourses < this->maxCourses) && ((this->isEnrolled(c)) == -1) ) {
 			this->courses[this->nbCourses] = c;  //enroll student in course
 			this->nbCourses ++;
-			cout<<this->name<<" enrolled in course: "<<*c<<endl;
+			//cout<<this->name<<" enrolled in course: "<<*c<<endl;
 			return true;
 	}
-	else if (this->nbCourses == this->maxCourses) cout<<this->name<<" schedule is full"<<endl;
-	else if (this->isEnrolled(c)) cout<<this->name << " is already enroled in course " << c->name<<endl;
+	// if not enrolled, display reasons accordingly
+	//else if (this->nbCourses == this->maxCourses) cout<<this->name<<" schedule is full"<<endl;
+	//else if (this->isEnrolled(c)) cout<<this->name << " is already enroled in course " << c->name<<endl;
 	return false;
 }
 
@@ -103,7 +108,7 @@ int* CStudent::calcAverages(){
 	int* arrayOfTotals ;
 	int total;
 	arrayOfTotals = new int [this->nbCourses];
-	cout<<"Totals for courses:"<<endl;
+	cout<<"Totals for courses for :"<< this-> name <<endl;
 
 	for (int i=0; i<this->nbCourses; i++){
 		total = 0;

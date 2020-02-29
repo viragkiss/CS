@@ -85,14 +85,13 @@ void CDept::enrollStudentsInCourses()
         CStudent* tmps;
         tmps = (this->students[i]); //create temporary variable for a given student
 
-        while(tmps ->nbCourses < MAXCRST){
+        while(tmps ->nbCourses < (MAXCRST-1)){
             randIndex = rand() % nbCourses;
 
             CCourse* tmpc;
             tmpc = (this->courses[randIndex]);
 
             this->enroll(tmps, tmpc);
-            cout<<"----------------done-----------------------------------"<<endl;
         }
     }
 }
@@ -160,7 +159,7 @@ void CDept::displayStudents() {
     for (int i=0; i<this->nbStudents; i++){
         (this->students[i])->displayInfo();
     }
-    cout<<"----------------------------------------------------"<<endl;
+    cout<<"----------------------------------------------------------"<<endl;
 }
 
 void CDept::displayCourses() {
@@ -169,7 +168,7 @@ void CDept::displayCourses() {
     for (int i=0; i<this->nbCourses; i++){
         (this->courses[i])->displayInfo();
     }
-    cout<<"----------------------------------------------------"<<endl;
+    cout<<"----------------------------------------------------------"<<endl;
 }
 
 void CDept::enterStudentGrades(CStudent* ps, CCourse* pc, int* grades) {
@@ -189,15 +188,53 @@ void CDept::enterStudentGrades(CStudent* ps, CCourse* pc, int* grades) {
 //----------------- 3 extra functions --------------------
 
 CCourse** CDept::findCourses(CStudent* s){
-    s->displayCourses();
-    return s->courses;
+    
+    if (s == NULL){
+        cout<<"Student does not exist."<<endl;
+        return NULL;
+    }
+
+    else if (s->nbCourses != 0){
+        s->displayCourses();
+        return s->courses;
+    }
+    else {
+        cout<<"Student is not enrolled in any courses."<<endl;
+        return NULL;
+    }
 }
-void CDept::findBestStudent(CCourse* c){
-    c->findBestStudent();
+CStudent* CDept::findBestStudent(CCourse* c){
+    CStudent* bestStudent;
+    bestStudent = c->findBestStudent();
+    if (bestStudent != NULL) return bestStudent;
+    else return NULL;
 }
 
-CStudent* CDept::ThreeCoursesHighest(){
+CStudent* CDept::threeCoursesHighest(){
+    int number = 0;
+    int index1 = 0;
+    int index2 = 0;
     
+    for (int i=0; i<this->nbCourses; i++){
+        
+        if (this->courses[i]->nbEnrolled != 0){
+            
+            for (int j=0; j<(courses[i])->nbEnrolled; j++){
+                int average = this->courses[i]->calcAverages()[j];
+                int numberOfCourses = ((this->courses[i]->enrolled)[j])->nbCourses;
+
+                if ( (average > number) && (numberOfCourses >= 3)){
+                    average = number;
+                    index1 = i;
+                    index2 = j;
+                }
+            }
+        }
+    }
+    CStudent* tmps;
+    tmps = (courses[index1]->enrolled)[index2];
+    cout<<"Best student: "<< *tmps <<endl;
+    return tmps;
 }
 
 

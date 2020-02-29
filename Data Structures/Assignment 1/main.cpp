@@ -10,8 +10,14 @@ using namespace std;
 // test the cstudent class
 void TestStudent()
 {
+    cout<<endl;
+    cout<<"----------------- Run TestStudent() -------------------------"<<endl;
+    cout<<endl;
+
     srand((unsigned int)time(0));
 
+    int studentArrayLen = 8;
+    int courseArrayLen = 5;
     //mock student array
     CStudent ss[] = {CStudent((char*)"Mark", 677), CStudent((char*)"Lili", 123), CStudent((char*)"Bela", 567), CStudent((char*)"Anna", 345),
     CStudent((char*)"Bogi", 876), CStudent((char*)"Alia", 321), CStudent((char*)"Isaiah", 908), CStudent((char*)"Jakub", 908)};
@@ -19,71 +25,88 @@ void TestStudent()
     CCourse cc[] = {CCourse((char*)"Discrete maths", 123), CCourse((char*)"Data Structures", 124), CCourse((char*)"Algorithms", 126),
     CCourse((char*)"CSO", 238), CCourse((char*)"Machine Learning", 567)};
     
-    ss[0].displayInfo();
-    
-    cout<<endl;
+    //test enroll() for 2 students
+    for (int i=0; i < courseArrayLen; i++){
+        if ((ss[0].enroll(&cc[i])) == false){
+            cout<<"Schedule is full. Can't enroll in more courses."<<endl;
+        }
+        else ss[0].enroll(&cc[i]);
+    } cout<<endl;
 
-    ss[0].enroll(&cc[0]); //fix up - enroll student in course and course in student
-    ss[0].enroll(&cc[1]);
-    ss[0].enroll(&cc[2]);
-    ss[0].enroll(&cc[3]);
-    ss[0].enroll(&cc[4]);
+    for (int i=0; i < courseArrayLen; i++){
+        if ((ss[2].enroll(&cc[i])) == false){
+            cout<<"Schedule is full. Can't enroll in more courses."<<endl;
+        }
+        else ss[2].enroll(&cc[i]);
+    } cout<<endl;    
+    cout<<"----------------------------------------------------------"<<endl;
 
-    cc[0].displayInfo();
-
-    cc[0].enroll(&ss[0]);
-    cc[0].enroll(&ss[1]);
-    cc[0].enroll(&ss[2]);
-    cc[0].enroll(&ss[3]);
-    cc[0].enroll(&ss[4]);
-    cc[0].enroll(&ss[5]);
-    cc[0].enroll(&ss[6]);
-    cc[0].enroll(&ss[7]);
-
-    ss[0].displayInfo();
-    ss[2].displayInfo();
-    ss[3].displayInfo();
-    cc[0].displayInfo();
-
-    //test setCourseGrades()
+    //test grades methods and display/print methods for 2 students
     int* scores;
     scores = new int[NBEXAMS];
+    int numCourses1 = ss[0].getNbCourses();
+    int numCourses2 = ss[2].getNbCourses();
 
-    for (int i=0; i<MAXCRST; i++){
+    for (int i=0; i<numCourses1; i++){
         for (int j=0; j<NBEXAMS; j++){
            scores[j] = rand() % 101;
         }
-        ss[0].setCourseGrades(i, scores);  //pass array to course and set course grades
-        cout<<"i is "<<i<<endl;
+        ss[0].setCourseGrades(i, scores);
+    }
+
+    for (int i=0; i<numCourses2; i++){
+        for (int j=0; j<NBEXAMS; j++){
+           scores[j] = rand() % 101;
+        }
+        ss[2].setCourseGrades(i, scores);
     }
     
-    ss[0].displayInfo();
+    ss[0].displayInfo();  ss[0].printGrades();  cout<<endl;
+    ss[2].displayInfo();  ss[2].printGrades();  cout<<endl;
+    cout<<"----------------------------------------------------------"<<endl;
 
-    cout<<"Here I'm displaying the courses of 2 students. Student 1: "<<endl;
+
+    // test displayCourses() for 2 students
+    cout<<"Here I'm displaying the courses of 2 students."<<endl;
+    cout<<"Student 1:"<<endl;
     cout<<endl;
     ss[0].displayCourses();
     cout<<"Student 2: "<<endl;
-    ss[3].displayCourses();
-    cout<<endl;
-    cc[0].displayInfo();
+    ss[2].displayCourses();
+    cout<<"----------------------------------------------------------"<<endl;
 
-    ss[0].calcAverages();
-    ss[3].calcAverages();
-
-    cc[0].calcAverages();
-    cc[2].calcAverages();
     
+    // test calcAverages() for 2 students
+    ss[0].calcAverages();
+    ss[2].calcAverages();
+    cout<<endl;
+    cout<<"----------------------------------------------------------"<<endl;
 
-    //cd Desktop/"Data Structures_Ass1".   //////*/
+    // test isEnrolled() for 1 student
+    int is1 = ss[0].isEnrolled(&cc[2]);
+    cout<<is1<<endl;
+    int is2 = ss[0].isEnrolled(&cc[4]);
+    cout<<is2<<endl;
+    cout<<"----------------------------------------------------------"<<endl;
 }
 
 // test the cstudent class
 void TestCourse()
 {
-    /*CCourse c2((char*)"Data Structures", 124);
-    CCourse c3((char*)"Algorithms", 126);
-    CCourse c4((char*)"CSO", 238);
-    CCourse c5((char*)"Visual Art", 567);*/
+    cout<<endl;
+    cout<<"----------------- Run TestCourse() -------------------------"<<endl;
+    cout<<endl;
+
+    int studentArrayLen = 8;
+    int courseArrayLen = 5;
+    //mock student array
+    CStudent ss[] = {CStudent((char*)"Mark", 677), CStudent((char*)"Lili", 123), CStudent((char*)"Bela", 567), CStudent((char*)"Anna", 345),
+    CStudent((char*)"Bogi", 876), CStudent((char*)"Alia", 321), CStudent((char*)"Isaiah", 908), CStudent((char*)"Jakub", 908)};
+    //mock course array
+    CCourse cc[] = {CCourse((char*)"Discrete maths", 123), CCourse((char*)"Data Structures", 124), CCourse((char*)"Algorithms", 126),
+    CCourse((char*)"CSO", 238), CCourse((char*)"Machine Learning", 567)};
+
+
 }
 
 // main fucntion to test the depart functionnalities
@@ -97,16 +120,17 @@ int main(int argc, const char * argv[])
     TestCourse() ;
     
     // Create one dept with some default courses and students
+    CDept dept = CDept((char*)"BA Computer Science");
+
+    cout<<"----------------------------------------------------------"<<endl;
     // Then display all the students and all the courses
-        //---- do it here ----
-    CDept dept = CDept((char*)"Computer Science");
-    dept.getCourse(1);
-    dept.getStudent(2);
 
     dept.displayStudents();
     dept.displayCourses();
 
-    CStudent* s1 = dept.getStudent(10);
+    cout<<"----------------------------------------------------------"<<endl;
+
+    /*CStudent* s1 = dept.getStudent(10);
     CCourse* c1 = dept.getCourse(10);
     
     int* grades;
@@ -114,42 +138,99 @@ int main(int argc, const char * argv[])
     for (int i=0; i<NBEXAMS; i++){
         grades[i] = rand() % 101;
     }
-
-    dept.enterStudentGrades(s1, c1, grades);
+    dept.enterStudentGrades(s1, c1, grades);*/
     
+
     // Display the courses taken by a student with index 2
-        //---- do it here ----
+    (dept.getStudent(2))->displayCourses();
+
+    cout<<"----------------------------------------------------------"<<endl;
     
     // Find the best student in a particular course
+    CStudent* bestStudent;
+    CCourse* course;
+    course = dept.getCourse(0);
+    bestStudent = dept.findBestStudent(course);
+    
     // Dispaly the student info and his/her Total average score
-        //---- do it here ----
+    if (bestStudent != NULL){
+        
+        bestStudent->displayInfo();
+        int* bestStudentAverages;
+        bestStudentAverages = bestStudent->calcAverages();
+
+        int nbCourses = bestStudent->getNbCourses();
+        int total = 0;
+        for (int i=0; i < nbCourses; i++){
+            total = total + bestStudentAverages[i];
+        }
+
+        total = total / nbCourses;
+        cout<<"Best student average score is: "<< total << endl;
+    }
+    else cout<<"No best student, course is empty."<<endl;
     
+    cout<<"----------------------------------------------------------"<<endl;
+
     // Create one dept with some default courses and students
-        //---- do it here ----
+    CDept dept2((char*) "MA Computer Science");
+
+    cout<<"----------------------------------------------------------"<<endl;
     
-    // Find the courses taken by a prticular student
-        //---- do it here ----
+    // Find the courses taken by a particular student
+    CStudent* student;
+    student = dept2.getStudent(10);
+    dept.findCourses(student);
+
+    cout<<"----------------------------------------------------------"<<endl;
     
     // Create a new course and it to the department offering
-        //---- do it here ----
-        CCourse c3((char*)"Data Structures", 356);
-        CCourse* ptr;
-        ptr = &c3;
-        dept.addCourse(ptr);
-        dept.displayCourses();
+    CCourse c3((char*)"Data Structures", 356);
+    CCourse* ptr;
+    ptr = &c3;
+    dept.addCourse(ptr);
+    dept.displayCourses();
+
+    cout<<"----------------------------------------------------------"<<endl;
+
+        //cout<<"Calling to find best student with at least 3 courses"<<endl;
+        //dept.threeCoursesHighest();
     
     // Register 2 students in a newly created course
-        //---- do it here ----
+    for(int i=0; i<2 ; i++){
+        CStudent* tmpss;
+        tmpss = dept.getStudent(i);
+        dept.enroll(tmpss, ptr);
+        tmpss->displayInfo();
+    }
+    
+    cout<<"----------------------------------------------------------"<<endl;
     
     // Display the updated list of all courses offered
-        //---- do it here ----
-    
-    // Register 2 students in a newly created course
-        //---- do it here ----
-    
+    dept.displayCourses();
+
+    cout<<"----------------------------------------------------------"<<endl;
+
     // Enter the grades of these 2 students in the new course
-        //---- do it here ----
+    int* grades;
+    grades = new int [NBEXAMS];
     
+    for(int i=0; i<2 ; i++){
+        CStudent* tmpss;
+        tmpss = dept.getStudent(i);
+        cout<<endl;
+
+        for (int j=0; j < NBEXAMS; j++){
+            grades[j] = rand() % 101;
+        }
+        dept.enterStudentGrades(tmpss, ptr, grades);
+        tmpss->printGrades();
+        cout<<endl;
+    }
+
+    cout<<"----------------------------------------------------------"<<endl;
+
+
     cout << "\n---- I am done ---- Au revoir ----\n\n";
     return 0;
 }

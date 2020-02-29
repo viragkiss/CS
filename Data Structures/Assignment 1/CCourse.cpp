@@ -39,12 +39,12 @@ bool CCourse::enroll(CStudent* s){
 			this->enrolled[this->nbEnrolled] = s;  //enroll student in course
 			this->nbEnrolled ++;
 
-			cout<<"Enrolled student: "<<*s;
+			//cout<<"Enrolled student: "<<*s;
 			return true;
 	}
 	// if not enrolled, display reasons accordingly
-	else if (this->nbEnrolled == this->capacity) cout<< this->name <<" course is full" <<endl;
-	else if (this->isEnrolled(s)) cout<< s->name << " is already enroled in course " << this->name <<endl;
+	//else if (this->nbEnrolled == this->capacity) cout<< this->name <<" course is full" <<endl;
+	//else if (this->isEnrolled(s)) cout<< s->name << " is already enroled in course " << this->name <<endl;
 	return false;
 }
 
@@ -100,17 +100,15 @@ int* CCourse::calcAverages(){
 				total = total + tmpArray[j];
 				//cout<<"TMP "<<tmpArray[j];
 			}
-			cout<<endl;
 			arrayOfTotals[i] = total/NBEXAMS;
 		}
 		else cout<<"Course not found: "<<this->name<<endl;
 	}
-	cout<<"Totals for course: "<<this->name<<endl;
+
+	/*cout<<"Totals for course: "<<this->name<<endl;
 	for (int a=0; a<this->nbEnrolled; a++){
 		cout<<arrayOfTotals[a]<<", ";
-	}
-	cout<<endl;
-	cout<<endl;
+	}*/
 
 	return arrayOfTotals;
 }
@@ -129,7 +127,7 @@ int CCourse::findCourseIndex (CStudent* s){
 
 CStudent* CCourse::findBestStudent(){
 	int number = 0;
-	int index = NULL;
+	int index = 0;
 	if (this->nbEnrolled != 0){
 		for (int i=0; i < nbEnrolled; i++){
 			if ((this->calcAverages()[i] > number )){
