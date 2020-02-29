@@ -33,27 +33,28 @@ CCourse::~CCourse()
 }
 
 bool CCourse::enroll(CStudent* s){
-	if (this->nbEnrolled < this->capacity){
-		if (s->nbCourses < MAXCRST){
+	// first, check if the course is full or the student is already enrolled
+	if ((this->nbEnrolled < this->capacity) && ((this->isEnrolled(s)) == -1 ) ){
 
 			this->enrolled[this->nbEnrolled] = s;  //enroll student in course
 			this->nbEnrolled ++;
-			s->courses[s->nbCourses] = this;   //add course to student schedule
-			s->nbCourses ++;
 
 			cout<<"Enrolled student: "<<*s;
-			cout<<"Available spaces: "<<(this->capacity - this->nbEnrolled)<<endl;
 			return true;
-		}
-		else {
-			cout<<*s->name<<" schedule is full"<<endl;
-			return false;
+	}
+	// if not enrolled, display reasons accordingly
+	else if (this->nbEnrolled == this->capacity) cout<< this->name <<" course is full" <<endl;
+	else if (this->isEnrolled(s)) cout<< s->name << " is already enroled in course " << this->name <<endl;
+	return false;
+}
+
+int CCourse::isEnrolled(CStudent* s){
+	for (int i=0; i < this->nbEnrolled; i++){
+		if (this->enrolled[i] == s){
+			return i;
 		}
 	}
-	else {
-		cout<<"Course "<<this->name<<" is full"<<endl;
-		return false;
-	}
+	return -1;
 }
 
 
@@ -117,7 +118,7 @@ int CCourse::findCourseIndex (CStudent* s){
 			return j;
 		} 
 	}
-	cout<<"Course not found"<<endl;
+	cout<<"Course not found "<< this->name <<endl;
 	return -1;
 }
 

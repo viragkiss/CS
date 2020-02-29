@@ -41,7 +41,7 @@ void TestStudent()
     
     cout<<endl;
 
-    ss[0].enroll(&cc[0]);
+    ss[0].enroll(&cc[0]); //fix up - enroll student in course and course in student
     ss[0].enroll(&cc[1]);
     ss[0].enroll(&cc[2]);
     ss[0].enroll(&cc[3]);
@@ -89,7 +89,7 @@ void TestStudent()
     ss[3].calcAverages();
 
     cc[0].calcAverages();
-    cc[1].calcAverages();
+    cc[2].calcAverages();
     
 
     //cd Desktop/"Data Structures_Ass1".   //////*/
@@ -107,6 +107,7 @@ void TestCourse()
 // main fucntion to test the depart functionnalities
 int main(int argc, const char * argv[])
 {
+    srand((unsigned int)time(0));
     // Test the CStudent class
     TestStudent() ;
     
@@ -122,6 +123,17 @@ int main(int argc, const char * argv[])
 
     dept.displayStudents();
     dept.displayCourses();
+
+    CStudent* s1 = dept.getStudent(10);
+    CCourse* c1 = dept.getCourse(10);
+    
+    int* grades;
+    grades = new int [NBEXAMS];
+    for (int i=0; i<NBEXAMS; i++){
+        grades[i] = rand() % 101;
+    }
+
+    dept.enterStudentGrades(s1, c1, grades);
     
     // Display the courses taken by a student with index 2
         //---- do it here ----

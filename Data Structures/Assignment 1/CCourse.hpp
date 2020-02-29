@@ -25,6 +25,7 @@ public:
     friend ostream& operator<<(ostream &o, const CCourse &c);
     bool enroll(CStudent* s);  //if the course is not full, the function adds this pointer to the array of students enrolled, and increases the attribute nbEnrolled
  	friend class CStudent;
+    friend class CDept;
 
 public:
     // --- add getters and setters here
@@ -39,6 +40,7 @@ public:
     void displayStudents();  //traverse the array of enrolled students and calls CStudent::displayInfo() to displays the information of each student
     int* calcAverages(); //calculate the average grade for each of the students enrolled in the course, returns the averages as an array
     int findCourseIndex(CStudent* s);
+    int isEnrolled(CStudent* s);
     
 } ;
 #endif

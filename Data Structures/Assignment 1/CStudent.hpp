@@ -27,6 +27,7 @@ using namespace std ;
      ~CStudent() ;
      friend ostream& operator<<(ostream &o, const CStudent &s);
      friend class CCourse;
+     friend class CDept;
      bool enroll(CCourse* c);  // receive a pointer to a course, adds this pointer to the array of courses, and increases the attribute nbCourses
      
  public:
@@ -46,6 +47,7 @@ using namespace std ;
     void displayCourses();  //traverse the array of courses and displays the information of each course
     						//(code, name, capacity, and number of students enrolled) by calling the method CCourse::displayInfo()
     int* calcAverages(); //calculate the average grade for each of the courses taken by the student, returns the averages as an array
+    int isEnrolled(CCourse* c);
  
 } ;
 
