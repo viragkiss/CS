@@ -42,10 +42,11 @@ using namespace std ;
  public:
      // --- add other methods here
     bool enroll(CCourse* c);
+    int isEnrolled(CCourse* c);
     void displayInfo();
     void displayCourses();
     int* calcAverages();
-    int isEnrolled(CCourse* c);
+    int calcAverage(CCourse* c);
  
 } ;
 

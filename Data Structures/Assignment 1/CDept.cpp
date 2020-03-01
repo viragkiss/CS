@@ -7,8 +7,8 @@
 #include "CCourse.hpp"
 #include "CStudent.hpp"
 
-CDept::CDept(char* vname) {
-    // -- do it here --
+CDept::CDept(char* vname)
+{
     this->name = new char[strlen(vname)+1];
     strcpy(name, vname);
     this->students = new CStudent* [MAXNBST];
@@ -22,8 +22,8 @@ CDept::CDept(char* vname) {
     this->createDefaultGrades();
 }
 
-CDept::~CDept() {
-    // -- do it here --
+CDept::~CDept()
+{
     delete [] this->students;
     delete [] this->courses;
     delete [] this->name;
@@ -31,7 +31,6 @@ CDept::~CDept() {
 
 CStudent* CDept::getStudent(int index)
 {
-    // -- do it here --
     if ((nbStudents != 0) && (index < this->nbStudents)) {
         cout<<"got student "<< (this->students[index])->name <<endl;
         return this->students[index];
@@ -44,7 +43,6 @@ CStudent* CDept::getStudent(int index)
 
 CCourse* CDept::getCourse(int index)
 {
-    // -- do it here --
     if ((nbCourses != 0) && (index < this->nbCourses)){
         cout<<"got course "<< (this->courses[index])->name <<endl;
         return this->courses[index];
@@ -77,7 +75,6 @@ void CDept::createCourses() {
 
 void CDept::enrollStudentsInCourses()
 {
-    // -- do it here --
     srand((unsigned int)time(0));
     int randIndex;
 
@@ -118,8 +115,8 @@ void CDept::createDefaultGrades()
     }
 }
 
-bool CDept::addStudent(CStudent* s) {
-
+bool CDept::addStudent(CStudent* s)
+{
     if (this->nbStudents < MAXNBST){
         this->students[this->nbStudents] = s;
         this->nbStudents ++;
@@ -133,8 +130,8 @@ bool CDept::addStudent(CStudent* s) {
     }
 }
 
-bool CDept::addCourse(CCourse* c) {
-
+bool CDept::addCourse(CCourse* c)
+{
     if (this->nbCourses < MAXNBCR){
         this->courses[this->nbCourses] = c;
         this->nbCourses ++;
@@ -148,27 +145,25 @@ bool CDept::addCourse(CCourse* c) {
     }
 }
 
-bool CDept::enroll(CStudent* ps, CCourse* pc) {
-    // -- do it here --
+bool CDept::enroll(CStudent* ps, CCourse* pc)
+{
     return (ps->enroll(pc), pc->enroll(ps));
 }
 
-void CDept::displayStudents() {
-    // -- do it here --
+void CDept::displayStudents()
+{
     cout<<"Here are the students in the Department: "<<this->name<<endl;
     for (int i=0; i<this->nbStudents; i++){
         (this->students[i])->displayInfo();
     }
-    cout<<"----------------------------------------------------------"<<endl;
 }
 
-void CDept::displayCourses() {
-    // -- do it here --
+void CDept::displayCourses()
+{
     cout<<"Here are the courses in the Department: "<<this->name<<endl;
     for (int i=0; i<this->nbCourses; i++){
         (this->courses[i])->displayInfo();
     }
-    cout<<"----------------------------------------------------------"<<endl;
 }
 
 void CDept::enterStudentGrades(CStudent* ps, CCourse* pc, int* grades) {
@@ -187,13 +182,12 @@ void CDept::enterStudentGrades(CStudent* ps, CCourse* pc, int* grades) {
 
 //----------------- 3 extra functions --------------------
 
-CCourse** CDept::findCourses(CStudent* s){
-    
+CCourse** CDept::findCourses(CStudent* s)
+{
     if (s == NULL){
         cout<<"Student does not exist."<<endl;
         return NULL;
     }
-
     else if (s->nbCourses != 0){
         s->displayCourses();
         return s->courses;
@@ -203,14 +197,17 @@ CCourse** CDept::findCourses(CStudent* s){
         return NULL;
     }
 }
-CStudent* CDept::findBestStudent(CCourse* c){
+
+CStudent* CDept::findBestStudent(CCourse* c)
+{
     CStudent* bestStudent;
     bestStudent = c->findBestStudent();
     if (bestStudent != NULL) return bestStudent;
     else return NULL;
 }
 
-CStudent* CDept::threeCoursesHighest(){
+CStudent* CDept::threeCoursesHighest()
+{
     int number = 0;
     int index1 = 0;
     int index2 = 0;

@@ -76,9 +76,13 @@ void TestStudent()
     cout<<"----------------------------------------------------------"<<endl;
 
     
-    // test calcAverages() for 2 students
+    // test averages for 2 students
     ss[0].calcAverages();
     ss[2].calcAverages();
+    int i1, i2;
+    i1 = ss[0].calcAverage(&cc[0]);
+    i2 = ss[2].calcAverage(&cc[0]);
+    cout<<"Averages: "<<i1 <<", "<< i2 <<endl;
     cout<<endl;
     cout<<"----------------------------------------------------------"<<endl;
 
@@ -106,18 +110,64 @@ void TestCourse()
     CCourse cc[] = {CCourse((char*)"Discrete maths", 123), CCourse((char*)"Data Structures", 124), CCourse((char*)"Algorithms", 126),
     CCourse((char*)"CSO", 238), CCourse((char*)"Machine Learning", 567)};
 
+    // test enroll functions
+    for (int i=0; i < studentArrayLen; i++){
+        cc[0].enroll(&ss[i]);
+    }
+
+    int in1 = cc[0].isEnrolled(&ss[1]);
+    cout<<in1<<endl;
+    int in2 = cc[0].isEnrolled(&ss[7]);
+    cout<<in2<<endl;
+
+    int enr = cc[0].getNbEnrolled();
+    cout<<"Number of students enrolled in course: "<< enr <<endl;
+
+
+    cout<<"----------------------------------------------------------"<<endl;
+
+    // test display functions
+    cc[0].displayStudents();
+    cc[0].displayInfo();
+    cout<<"----------------------------------------------------------"<<endl;
+
+    // test getStudent()
+    cc[0].getStudent(3);
+    cc[0].getStudent(7);
+    cout<<"----------------------------------------------------------"<<endl;
+
+    // test findBestStudent()
+    cc[0].findBestStudent();
+
+    cout<<"----------------------------------------------------------"<<endl;
+
+    // test averages function
+    int* averagesArray;
+    averagesArray = new int [enr];
+    averagesArray = cc[0].calcAverages();
+    for (int i=0; i < enr; i++){
+        cout<<averagesArray[i]<<", ";
+    }
+    cout<<endl;
+    cout<<"----------------------------------------------------------"<<endl;
+
 
 }
 
 // main fucntion to test the depart functionnalities
 int main(int argc, const char * argv[])
 {
+
     srand((unsigned int)time(0));
     // Test the CStudent class
     TestStudent() ;
     
     // Test the CCourse class
     TestCourse() ;
+
+    cout<<endl;
+    cout<<"----------------- Run Main() -------------------------"<<endl;
+    cout<<endl;
     
     // Create one dept with some default courses and students
     CDept dept = CDept((char*)"BA Computer Science");
@@ -129,16 +179,6 @@ int main(int argc, const char * argv[])
     dept.displayCourses();
 
     cout<<"----------------------------------------------------------"<<endl;
-
-    /*CStudent* s1 = dept.getStudent(10);
-    CCourse* c1 = dept.getCourse(10);
-    
-    int* grades;
-    grades = new int [NBEXAMS];
-    for (int i=0; i<NBEXAMS; i++){
-        grades[i] = rand() % 101;
-    }
-    dept.enterStudentGrades(s1, c1, grades);*/
     
 
     // Display the courses taken by a student with index 2
@@ -179,7 +219,7 @@ int main(int argc, const char * argv[])
     
     // Find the courses taken by a particular student
     CStudent* student;
-    student = dept2.getStudent(10);
+    student = dept2.getStudent(2);
     dept.findCourses(student);
 
     cout<<"----------------------------------------------------------"<<endl;
@@ -192,9 +232,6 @@ int main(int argc, const char * argv[])
     dept.displayCourses();
 
     cout<<"----------------------------------------------------------"<<endl;
-
-        //cout<<"Calling to find best student with at least 3 courses"<<endl;
-        //dept.threeCoursesHighest();
     
     // Register 2 students in a newly created course
     for(int i=0; i<2 ; i++){
