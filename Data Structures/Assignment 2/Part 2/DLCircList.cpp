@@ -7,31 +7,32 @@
 using namespace std;
 #include "DLCircList.h"
 
-MyDoublyLinkedList::MyDoublyLinkedList (int n)
+DLCirclist::DLCirclist (int n)
 {
 	this->head = new Node();
 	this->tail = new Node();
 	this->head->next = tail;
 	this->head->prev = tail;
-	this->tail->prev = head;
+	this->tail->prev = head;  // link head to tail for circular list
 	this->tail->next = head;
 
-	listOfEaten = new string [n];
-	nEaten = 0;
+	this->listOfEaten = new Elem [n];  
+	this->nEaten = 0;
+	this->eaten = "";
 }
 
-MyDoublyLinkedList::~MyDoublyLinkedList ()
+DLCirclist::~DLCirclist ()
 {
 	while(!empty())
 		removeBack();
 }
 
-bool MyDoublyLinkedList::empty() const
+bool DLCirclist::empty() const
 {
 	return this->head->next == tail;
 }
 
-void MyDoublyLinkedList::add(Node *ptr, const string& elem)
+void DLCirclist::add(Node *ptr, const Elem& elem)
 {
 	Node *tmp = new Node(elem);
 	tmp->next = ptr;
@@ -40,57 +41,56 @@ void MyDoublyLinkedList::add(Node *ptr, const string& elem)
 	ptr->prev=tmp;
 }
 
-void MyDoublyLinkedList::addBack(const string& elem)
+void DLCirclist::addBack(const Elem& elem)
 {
 	add(this->tail, elem);
 }
 
-string MyDoublyLinkedList::remove(Node* cur)
+Elem DLCirclist::remove(Node* cur)  // return the name of a member and remove it
 {
 	if(!empty())
 	{
 		Node *tmp = cur->next;
 		cur->prev->next = tmp;
 		tmp->prev = cur->prev;
-		eaten = cur->elem;
+		this->eaten = cur->elem;
 		delete cur;
-		return eaten;
+		return this->eaten;
 	}
 	else throw runtime_error("List is Empty");
 }
 
-Node* MyDoublyLinkedList::traverseForth(int n)
+void DLCirclist::removeBack()
 {
-	Node *cur = head->next;
+	remove(this->tail->prev);
+}
+
+Node* DLCirclist::traverseForth(int n)  // move clockwise if N is even
+{
+	Node *cur = this->head->next;
 
 	for (int i=0; i < n; i++){
 		cur = cur->next;
-		while ((cur == head)||(cur == tail)){
+		while ((cur == this->head)||(cur == this->tail)){
 			cur = cur->next;
 		}
 	}
-	/*eaten = remove(cur);
-	listOfEaten[nEaten] = eaten;
-	nEaten++;*/
 	return cur;
 }
 
-Node* MyDoublyLinkedList::traverseBack(int n)
+Node* DLCirclist::traverseBack(int n)  // move anti-clockwise if N is odd
 {
-	Node *cur = head->next;
+	Node *cur = this->head->next;
 	for (int i=0; i < n; i++){
 		cur = cur->prev;
-		while ((cur == head)||(cur == tail)){
+		while ((cur == this->head)||(cur == this->tail)){
 			cur = cur->prev;
 		}
 	}
 	return cur;
-	//eaten = remove(cur);
-	//listOfEaten[nEaten] = eaten;
-	//nEaten++;
 }
 
-void MyDoublyLinkedList::moveAround(int n)
+void DLCirclist::moveAround(int n)
 {
 	Node* tmp;
 	if(!empty())
@@ -101,28 +101,23 @@ void MyDoublyLinkedList::moveAround(int n)
 		else if (n % 2 != 0){
 			tmp = traverseBack(n);
 		}
-		eaten = remove(tmp);
-		listOfEaten[nEaten] = eaten;
-		nEaten++;
+		this->eaten = remove(tmp);  // store name of eaten member in a variable
+		this->listOfEaten[nEaten] = this->eaten; // add eaten member name to list of eaten members and increase count
+		this->nEaten++;
 	}
 	else throw runtime_error("List is Empty");
 }
 
-void MyDoublyLinkedList::removeBack()
+void DLCirclist::showList() const
 {
-	remove(tail->prev);
-}
-
-void MyDoublyLinkedList::displayAll() const
-{
-	Node *cur=head->next;
+	Node *cur = this->head->next;
 	
-	if (cur->next == head) {
+	if (cur->next == this->head) {  // let user know if no one is left
 		cout<< "No one is left.";
 	}
 
-	//cout<<"Head -> ";
-	while(cur->next!=head)
+	//cout<<"Head -> ";  // for debugging
+	while(cur->next != this->head)
 	{
 		cout<<cur->elem<<" ";
 		cur=cur->next;
@@ -130,9 +125,9 @@ void MyDoublyLinkedList::displayAll() const
 	//cout<<" Tail "<<endl;
 	cout<<endl;
 
-	cout<< "Eaten: ";
-	for (int i=0; i < nEaten; i++){
-		cout<< listOfEaten[i] << " ";
+	cout<< "Eaten: ";  // display eaten member's names
+	for (int i=0; i < this->nEaten; i++){
+		cout<< this->listOfEaten[i] << " ";
 	}
 	cout<<endl;
 }

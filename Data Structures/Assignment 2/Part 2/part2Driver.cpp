@@ -14,18 +14,18 @@ int main()
 	srand((unsigned int)time(0));
 	int n, m;
 	
-	m = 4;
-	MyDoublyLinkedList myList(m);
+	m = 4; // number of members in the mission
+	DLCirclist myList(m);
 
-	myList.addBack("A");
+	myList.addBack("A");  // add members front to back
 	myList.addBack("B");
 	myList.addBack("C");
 	myList.addBack("D");
 
 	cout<< "Here are the starting members: ";
-	myList.displayAll(); cout<<endl;
+	myList.showList(); cout<<endl;
 
-	for (int i=1; i < m+1; i++){
+	for (int i=1; i < m+1; i++){  // display results for every day until no one is left
 
 		cout<< "#---------------------- Day "<< i << " ----------------------#" << endl;
 
@@ -37,7 +37,7 @@ int main()
 
 		myList.moveAround(n);
 		cout<< "Members left: ";
-		myList.displayAll(); cout<<endl;
+		myList.showList(); cout<<endl;
 
 	}
 

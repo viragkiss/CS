@@ -9,43 +9,44 @@
 #include<time.h>
 using namespace std;
 
+typedef string Elem; // define list element type once
 class Node
 {
 	private:
-		string elem;
+		Elem elem;
 		Node* next;
 		Node* prev;
-		friend class MyDoublyLinkedList;
+		friend class DLCirclist;
 		
 	public:
 		Node(): next(NULL), prev(NULL)
 		{}
-		Node(string elem) : elem(elem)
+		Node(Elem elem) : elem(elem)
 		{}
 };
 
 
-class MyDoublyLinkedList
+class DLCirclist
 {
 	private:
 		Node* head;
 		Node* tail;
-		string eaten;
-		string* listOfEaten;
-		int nEaten;
+		Elem eaten;  // temporary string to store eaten member
+		Elem* listOfEaten;  // list of eaten members used for display after each day
+		int nEaten;  // number of eaten members
 
 	public:
-		MyDoublyLinkedList (int n);
-		~MyDoublyLinkedList ();
+		DLCirclist (int n);
+		~DLCirclist ();
 		bool empty() const;
-		void add(Node *ptr, const string& elem);
-		void addBack(const string & elem);
-		string remove(Node* cur);
-		void removeBack();
-		void moveAround(int n);
-		Node* traverseForth(int n);
-		Node* traverseBack(int n);
-		void displayAll() const;
+		void add(Node *ptr, const Elem& elem);  // populate DL list
+		void addBack(const Elem & elem);  // populate DL list
+		Elem remove(Node* cur); // remove eaten members and return their names
+		void removeBack();  // used to clear all members
+		void moveAround(int n);  
+		Node* traverseForth(int n);  // traverse forth is N is even
+		Node* traverseBack(int n);  // traverse back (anti-clockwise) if N is odd
+		void showList() const;  // display remaining members
 };
 
 #endif
