@@ -6,10 +6,9 @@
 using namespace std ;
 #include "StackQueue.h"
 #include "SLinkedList.h"
-//#include "SLinkedList.cpp"
 
 
-LinkedStack::LinkedStack() //: L()
+LinkedStack::LinkedStack()
 {
 	L = LinkedList();
 }

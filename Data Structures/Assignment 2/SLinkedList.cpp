@@ -16,18 +16,18 @@ LinkedList::LinkedList ()
 {
 	this->head = NULL;
 }
-LinkedList::~LinkedList () // destructor to clean up all nodes
+LinkedList::~LinkedList ()
 {
 	while(!empty())
 		removeFront();
 	this->head = NULL;
 }
-bool LinkedList::empty() const // is list empty?
+bool LinkedList::empty() const
 {
 	return this->head == NULL;
 }
 
-const string& LinkedList::front() const // get front element
+const string& LinkedList::front() const
 {
 	if(!empty())
 		return this->head->elem;
@@ -35,13 +35,13 @@ const string& LinkedList::front() const // get front element
 		throw out_of_range("List is Empty");
 }
 
-void LinkedList::addFront(const string& elem) // add to front of list
+void LinkedList::addFront(const string& elem)
 {
 	Node *tmp = this->head;
 	this->head = new Node(elem);
 	this->head->next = tmp;
 }
-void LinkedList::removeFront() // remove front item list
+void LinkedList::removeFront()
 {
 	if(!empty())
 	{
@@ -56,11 +56,11 @@ void LinkedList::removeFront() // remove front item list
 void LinkedList::displayElements() const
 {
 	Node *ptr=head;
-	cout<<"Head->";
+	cout<<"Head ->";
 
 	while(ptr!=NULL)
 	{
-		cout<< ptr->elem <<"->";
+		cout<< ptr->elem <<" -> ";
 		ptr=ptr->next;
 	}
 	cout<<"Null"<<endl;

@@ -23,7 +23,7 @@ class LinkedList
 {
 	private:
 		Node* head;
-		//int n; //number of elements in the list
+
 	public:
 		LinkedList ();
 		~LinkedList ();
