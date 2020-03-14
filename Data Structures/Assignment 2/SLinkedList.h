@@ -1,22 +1,23 @@
-//SLinkedList.h
+
 
 #ifndef SLinkedList_h
 #define SLinkedList_h
 #include <iostream>
 #include <string>
 #include<exception>
-using namespace std ;
+using namespace std;
 
+
+typedef string Elem; // define list element type
 class Node
 {
 	private:
-		string elem;
+		Elem elem;
 		Node* next;
 		
 	public:
-		Node(string elem);
+		Node(Elem elem);
 		friend class LinkedList;
-
 };
 
 class LinkedList
@@ -28,10 +29,11 @@ class LinkedList
 		LinkedList ();
 		~LinkedList ();
 		bool empty() const;
-		const string& front() const;
-		void addFront(const string& elem);
+		const Elem& front() const;  // return first element
+		void addFront(const Elem& elem);
 		void removeFront();
 		void displayElements() const;
 };
 
 #endif
+

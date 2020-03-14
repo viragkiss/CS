@@ -11,26 +11,34 @@ using namespace std ;
 int main() {
 
 
-	StackQueue Q, QQ;
-	Q = StackQueue(); QQ = StackQueue();
-	int size = 4;
-	string listOfJobs[] = {"ABC", "DEF", "GHI", "LJK"};
-	string listtt[] = {};
+	StackQueue Queue_1, Queue_2;
+	Queue_1 = StackQueue();  int size_1 = 4;  string listOfJobs_1 [] = {"ABC", "DEF", "GHI", "LJK"};
+	Queue_2 = StackQueue();  int size_2 = 0;  string listOfJobs_2 [] = {};
+
 
 	cout<< "-----------------------------------------------------------"<< endl;
-	cout << "Testing Input Stack:" << endl;
-	Q.input(listOfJobs, size);
-	cout << "Testing Output Stack:" << endl;
-	Q.output(size);
-	Q.displayJobs();
+	cout<< "Testing Stack 1:" <<endl;;
+	cout<< "Input Stack:" <<endl;
+	Queue_1.input(listOfJobs_1, size_1);
+
+	cout<< "Output Stack:" <<endl;
+	Queue_1.output(size_1);
+	Queue_1.displayJobs();
+
 	cout<< "-----------------------------------------------------------"<< endl;
 
-	cout << "Testing Input Stack:" << endl;
-	QQ.input(listtt, 0);
-	cout << "Testing Output Stack:" << endl;
-	QQ.output(0);
-	QQ.displayJobs();
+	cout<< "Testing Stack 2:" <<endl;;
+	cout<< "Input Stack:" <<endl;
+	Queue_2.input(listOfJobs_2, size_2);
+
+	cout<< "Output Stack:" <<endl;
+	Queue_2.output(size_2);
+	Queue_2.displayJobs();
+
 	cout<< "-----------------------------------------------------------"<< endl;
 
+	
+	cout<< "==================== Program finished ====================="<< endl;
 	return EXIT_SUCCESS;
 }
+

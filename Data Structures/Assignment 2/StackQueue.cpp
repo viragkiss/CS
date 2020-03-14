@@ -13,33 +13,18 @@ LinkedStack::LinkedStack()
 	L = LinkedList();
 }
 
-/*int LinkedStack::size() const
-{ 
-	return n;
-}*/
-
 bool LinkedStack::empty() const
 { 
-	//return n == 0;
 	return L.empty();
-}
-
-const Elem& LinkedStack::top() const //throw(StackEmpty)
-{ 
-	//if (empty()) throw StackEmpty("Top of empty stack");
-	return L.front();
 }
 
 void LinkedStack::push(const Elem& e)
 {
-	//++n;
 	L.addFront(e);
 }
 
-Elem& LinkedStack::pop()//throw(StackEmpty)
+Elem& LinkedStack::pop()
 {
-	//if (empty()) throw StackEmpty("Pop from empty stack");
-	//--n;
 	tmp = L.front();
 	L.removeFront();
 	return tmp;
@@ -49,9 +34,8 @@ void LinkedStack::showStack()
 {
 	L.displayElements();
 }
-//--------------------------------------------------------------------------
+//------------------------------------------------------------------
 
-// queue class
 
 StackQueue::StackQueue()
 {
@@ -59,15 +43,15 @@ StackQueue::StackQueue()
 	Out = LinkedStack();
 }
 
-void StackQueue::input(string *stringArray, int arraySize)
+void StackQueue::input(Elem *elemArray, int arraySize)
 {
 	if (arraySize != 0) {
 		for (int i=0; i < arraySize; i++) {
-			In.push(stringArray[i]);
+			In.push(elemArray[i]);
 		}
 		In.showStack();
 	}
-	else cout<< "There are currently no jobs." << endl;
+	else cout<< "There are currently no jobs." << endl;  // output message if stack is empty
 }
 
 void StackQueue::output(int arraySize)

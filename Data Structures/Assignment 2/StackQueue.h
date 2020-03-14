@@ -12,33 +12,28 @@ using namespace std ;
 typedef string Elem;
 class LinkedStack
 {
+	private:
+    	LinkedList L;
+    	Elem tmp;  // variable to store popped element
+
 	public:
 		LinkedStack();
-		//int size() const;
 		bool empty() const;
-		const Elem& top() const; //throw(StackEmpty);
 		void push(const Elem& e);
-		Elem& pop(); //throw(StackEmpty);
+		Elem& pop();
 		void showStack();
-
-    private:
-    	LinkedList L;
-    	Elem tmp;
-    	//int n;
 };
-/*class StackEmpty : public RuntimeException {
-	public:
-		StackEmpty(const string& err): RuntimeException(err) {}
-};*/
+
 
 class StackQueue
 {
 	private:
-		LinkedStack In, Out;
-		string tmp;
+		LinkedStack In, Out;  // input and output stacks
+		Elem tmp;  // variable to store popped element
+
 	public:
 		StackQueue();
-		void input(string *stringArray, int arraySize);
+		void input(Elem *elemArray, int arraySize);  // input an array of Elem jobs
 		void output(int arraySize);
 		void displayJobs();
 };
