@@ -1,4 +1,10 @@
-// part2Driver.cpp
+/*------------------------------------------------------------------------------
+ Name         : Assignment 2 Part 2
+ Author       : Virag Kiss
+ Description  : Implement and solve the Missionaries and Cannibals Problem
+ 				using a Doubly Linked Circular List
+--------------------------------------------------------------------------------*/
+
 
 #include<iostream>
 #include<exception>
@@ -17,10 +23,10 @@ int main()
 	m = 4; // number of members in the mission
 	DLCirclist myList(m);
 
-	myList.addBack("A");  // add members front to back
-	myList.addBack("B");
-	myList.addBack("C");
-	myList.addBack("D");
+	myList.addBack("Jakub");  // add members front to back
+	myList.addBack("Gautham");
+	myList.addBack("Zayed");
+	myList.addBack("Pedro");
 
 	cout<< "Here are the starting members: ";
 	myList.showList(); cout<<endl;

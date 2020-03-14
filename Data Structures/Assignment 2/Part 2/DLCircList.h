@@ -1,4 +1,10 @@
-// DLCircList.h
+/*------------------------------------------------------------------------------
+ Name         : Assignment 2 Part 2
+ Author       : Virag Kiss
+ Description  : Implement and solve the Missionaries and Cannibals Problem
+ 				using a Doubly Linked Circular List
+--------------------------------------------------------------------------------*/
+
 
 #ifndef DLCircList_h
 #define DLCircList_h
@@ -6,7 +12,6 @@
 #include<iostream>
 #include<exception>
 #include<string>
-#include<time.h>
 using namespace std;
 
 typedef string Elem; // define list element type once

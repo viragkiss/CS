@@ -1,9 +1,14 @@
-// DLCircList.cpp
+/*------------------------------------------------------------------------------
+ Name         : Assignment 2 Part 2
+ Author       : Virag Kiss
+ Description  : Implement and solve the Missionaries and Cannibals Problem
+ 				using a Doubly Linked Circular List
+--------------------------------------------------------------------------------*/
+
 
 #include<iostream>
 #include<exception>
 #include<string>
-#include<time.h>
 using namespace std;
 #include "DLCircList.h"
 
@@ -125,7 +130,7 @@ void DLCirclist::showList() const
 	//cout<<" Tail "<<endl;
 	cout<<endl;
 
-	cout<< "Eaten: ";  // display eaten member's names
+	cout<< "Eaten: ";  // display eaten members' names
 	for (int i=0; i < this->nEaten; i++){
 		cout<< this->listOfEaten[i] << " ";
 	}
