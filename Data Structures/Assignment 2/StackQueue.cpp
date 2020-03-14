@@ -1,4 +1,9 @@
-//StackQueue.cpp
+/*------------------------------------------------------------------------------------------
+ Name         : Assignment 2 Part 1
+ Author       : Virag Kiss
+ Description  : Implement the queueu of a printer using 2 Stacks as Singly Linked Lists
+-------------------------------------------------------------------------------------------*/
+
 
 #include <iostream>
 #include <string>
