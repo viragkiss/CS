@@ -1,3 +1,11 @@
+/*
+Virag Kiss
+CSO Assignment 1
+30/09/2020
+Version 1.0
+*/
+
+
 #include <stdio.h>
 #include <string.h>
 
@@ -65,7 +73,7 @@ void lefttoright (float num) {
 	double dsumpos = addPosNeg_double((double)num, (double)dir);
 
 	//add negative numbers float and double
-	num = -2.0;
+	num = - (num + 1.0);
 	dir = -2.0;
 	float sumneg = addPosNeg_float(num, dir);
 	double dsumneg = addPosNeg_double((double)num, (double)dir);
@@ -102,7 +110,7 @@ void righttoleft(float num){
 	float sumpos = addPosNeg_float(num, dir);
 	double dsumpos = addPosNeg_double((double)num, (double)dir);
 
-	num = 9999;
+	num = -(num + 1.0);
 	dir = -2.0;
 	float sumneg = addPosNeg_float(num, dir);
 	double dsumneg = addPosNeg_double((double)num, (double)dir);
@@ -122,21 +130,6 @@ void righttoleft(float num){
     printf("\n");
 
 }
-
-
-
-/*float addNeg(float num) {
-	float sum = 0.0;
-	float dir = -2.0;
-	
-	for (int x = 0; x < 5000; x=x+1) {
-
-		sum = sum - 1.0/num;
-		num = num + dir;
-	}
-	printf("heres partial sum 1 = %.30f", sum); printf("\n");
-	return sum;
-}*/
 
 
 void main() {
