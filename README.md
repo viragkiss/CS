@@ -1,2 +1,1 @@
-# CS
-CS materials and projects/Undergrad
+Undergraduate projects in Computer Science
